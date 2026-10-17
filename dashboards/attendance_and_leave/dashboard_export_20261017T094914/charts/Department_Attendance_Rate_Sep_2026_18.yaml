@@ -1,0 +1,32 @@
+slice_name: Department Attendance Rate (Sep 2026)
+description: Sales leads attendance at 97.5%, while Finance & Accounts (88.9%) and
+  Customer Support (92.4%) lag company benchmarks.
+certified_by: null
+certification_details: null
+viz_type: dist_bar
+params:
+  datasource: 3__table
+  viz_type: dist_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: (SUM(present_days) + 0.5 * SUM(half_days_unpaid)) / NULLIF(SUM(scheduled_days),
+      0) * 100
+    label: Attendance Rate %
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    filterOptionName: filter_sep2026
+    comparator: 2026-09
+    operator: ==
+    subject: year_month
+  groupby:
+  - department_name
+  order_desc: true
+  row_limit: 15
+  y_axis_format: .1f
+  show_legend: false
+query_context: null
+cache_timeout: null
+uuid: ff1313a8-d4b3-4ffd-bdf9-fdd76e557db7
+version: 1.0.0
+dataset_uuid: d8270a2a-908a-4021-bc1e-ae84514cd249

@@ -1,0 +1,21 @@
+slice_name: M04 Attrition Rate (Monthly)
+description: 0.70% monthly attrition in Sep 2026, remaining well below the 1.5% threshold.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: ROUND((SUM(leavers)::numeric / NULLIF(SUM(headcount_start), 0))
+      * 100, 2)
+    label: Attrition Rate
+  time_range: '2026-09-01 : 2026-09-30'
+  subheader: Monthly exits / starting headcount (Sep 2026)
+  y_axis_format: .1f
+query_context: null
+cache_timeout: null
+uuid: dce47409-9d9e-4f22-abb0-8ea778e10efe
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

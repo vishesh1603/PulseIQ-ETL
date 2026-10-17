@@ -1,0 +1,94 @@
+// Render with:  dot -Tsvg docs/warehouse_schema.dot -o docs/warehouse_schema.svg
+digraph pulseiq_dw {
+  graph [rankdir=LR, splines=spline, nodesep=0.35, ranksep=1.5, fontname="Helvetica", pad=0.3, labelloc=t, fontsize=20,
+         label="PulseIQ warehouse (schema dw): facts in the middle, dimensions around them\n "];
+  node  [shape=plain, fontname="Helvetica", fontsize=11];
+  edge  [color="#6b7280", arrowsize=0.7, fontname="Helvetica", fontsize=9, fontcolor="#6b7280"];
+
+  // ---------- facts ----------
+  fact_payroll [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#fff7ed" color="#c2410c">
+      <tr><td bgcolor="#fb923c"><b>fact_payroll</b></td></tr>
+      <tr><td align="left"><i>Grain: one row per employee per pay month</i></td></tr>
+      <tr><td align="left">PK employee_id, date_key<br align="left"/>FK employee_key, department_key, role_key<br align="left"/>measures: gross_pay, net_pay, employer_cost,<br align="left"/>deductions, overtime_pay, variable_pay ...<br align="left"/></td></tr>
+    </table>>];
+
+  fact_attendance_monthly [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#fff7ed" color="#c2410c">
+      <tr><td bgcolor="#fb923c"><b>fact_attendance_monthly</b></td></tr>
+      <tr><td align="left"><i>Grain: one row per employee per month</i></td></tr>
+      <tr><td align="left">PK employee_id, date_key<br align="left"/>FK employee_key, department_key<br align="left"/>measures: scheduled_days, present_days,<br align="left"/>wfh_days, half_days_unpaid, late_arrivals ...<br align="left"/></td></tr>
+    </table>>];
+
+  fact_leave [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#fff7ed" color="#c2410c">
+      <tr><td bgcolor="#fb923c"><b>fact_leave</b></td></tr>
+      <tr><td align="left"><i>Grain: one row per leave request</i></td></tr>
+      <tr><td align="left">PK leave_request_id<br align="left"/>FK employee_key, department_key, leave_type_key,<br align="left"/>start / end / applied / decided date_key<br align="left"/>measures: days, calendar_days<br align="left"/></td></tr>
+    </table>>];
+
+  fact_headcount_monthly [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#fff7ed" color="#c2410c">
+      <tr><td bgcolor="#fb923c"><b>fact_headcount_monthly</b></td></tr>
+      <tr><td align="left"><i>Grain: one row per department per month</i></td></tr>
+      <tr><td align="left">PK date_key, department_key<br align="left"/>measures: headcount_start, hires, exits,<br align="left"/>transfers_in, transfers_out, headcount_end<br align="left"/>(derived from dim_employee, not loaded)<br align="left"/></td></tr>
+    </table>>];
+
+  // ---------- dimensions ----------
+  dim_date [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#eff6ff" color="#1d4ed8">
+      <tr><td bgcolor="#60a5fa"><b>dim_date</b></td></tr>
+      <tr><td align="left">PK date_key (20250430)<br align="left"/>full_date, year, quarter, month_name,<br align="left"/>year_month, financial_year, is_month_end,<br align="left"/>is_working_day, is_holiday<br align="left"/></td></tr>
+    </table>>];
+
+  dim_employee [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#f0fdf4" color="#15803d">
+      <tr><td bgcolor="#4ade80"><b>dim_employee</b>  (Type 2 history)</td></tr>
+      <tr><td align="left"><i>one row per employee version</i></td></tr>
+      <tr><td align="left">PK employee_key (one per version)<br align="left"/>employee_id (business key)<br align="left"/>valid_from, valid_to (9999-12-31 = open),<br align="left"/>is_current, change_reason<br align="left"/>FK department_key, role_key<br align="left"/>hire_date, exit_date, tenure_years ...<br align="left"/>no overlapping versions (enforced)<br align="left"/></td></tr>
+    </table>>];
+
+  dim_department [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#eff6ff" color="#1d4ed8">
+      <tr><td bgcolor="#60a5fa"><b>dim_department</b></td></tr>
+      <tr><td align="left">PK department_key<br align="left"/>department_id (business key)<br align="left"/>department_name, cost_center<br align="left"/></td></tr>
+    </table>>];
+
+  dim_role [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#eff6ff" color="#1d4ed8">
+      <tr><td bgcolor="#60a5fa"><b>dim_role</b></td></tr>
+      <tr><td align="left">PK role_key<br align="left"/>role_id (business key)<br align="left"/>FK department_key<br align="left"/>role_title, role_level, salary band<br align="left"/></td></tr>
+    </table>>];
+
+  dim_leave_type [label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="5" bgcolor="#eff6ff" color="#1d4ed8">
+      <tr><td bgcolor="#60a5fa"><b>dim_leave_type</b></td></tr>
+      <tr><td align="left">PK leave_type_key<br align="left"/>leave_type_code (business key)<br align="left"/>leave_type_name, pay_type, quota<br align="left"/></td></tr>
+    </table>>];
+
+  // ---------- relationships (fact -> dimension) ----------
+  fact_payroll -> dim_date [label="date_key"];
+  fact_payroll -> dim_employee [label="employee_key"];
+  fact_payroll -> dim_department [label="department_key"];
+  fact_payroll -> dim_role [label="role_key"];
+
+  fact_attendance_monthly -> dim_date [label="date_key"];
+  fact_attendance_monthly -> dim_employee [label="employee_key"];
+  fact_attendance_monthly -> dim_department [label="department_key"];
+
+  fact_leave -> dim_date [label="4 date keys"];
+  fact_leave -> dim_employee [label="employee_key"];
+  fact_leave -> dim_department [label="department_key"];
+  fact_leave -> dim_leave_type [label="leave_type_key"];
+
+  fact_headcount_monthly -> dim_date [label="date_key"];
+  fact_headcount_monthly -> dim_department [label="department_key"];
+
+  dim_employee -> dim_department [label="department_key", style=dashed];
+  dim_employee -> dim_role [label="role_key", style=dashed];
+  dim_role -> dim_department [label="department_key", style=dashed];
+
+  {rank=same; dim_date; dim_leave_type;}
+  {rank=same; fact_payroll; fact_attendance_monthly; fact_leave; fact_headcount_monthly;}
+  {rank=same; dim_employee; dim_department; dim_role;}
+}

@@ -1,0 +1,24 @@
+slice_name: Leave Days by Leave Type
+description: Earned Leave (2,613 days, 32.7%) and Casual Leave (2,226 days, 27.8%)
+  form 60.5% of total leave consumption.
+certified_by: null
+certification_details: null
+viz_type: dist_bar
+params:
+  datasource: 4__table
+  viz_type: dist_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(days)
+    label: Total Leave Days
+  groupby:
+  - leave_type_name
+  order_desc: true
+  row_limit: 10
+  y_axis_format: ',.0f'
+  show_legend: false
+query_context: null
+cache_timeout: null
+uuid: 0caa3f1f-90a3-47fc-9e21-34e9d9e93e3a
+version: 1.0.0
+dataset_uuid: 624a962e-d2a5-4e3b-a6af-bb93754c97b7

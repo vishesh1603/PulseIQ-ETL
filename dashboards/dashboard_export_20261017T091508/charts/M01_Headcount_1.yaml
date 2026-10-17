@@ -1,0 +1,20 @@
+slice_name: M01 Headcount
+description: Total active headcount on 30 Sep 2026 is 441 (+14 vs Aug 2026).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(headcount_end)
+    label: Headcount
+  time_range: '2026-09-01 : 2026-09-30'
+  subheader: Active employees on 30 Sep 2026 (+14 vs Aug 2026)
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: 82c0406e-48e8-44de-8b82-228df1e27304
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

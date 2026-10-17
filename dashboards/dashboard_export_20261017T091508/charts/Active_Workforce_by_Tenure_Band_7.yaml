@@ -1,0 +1,23 @@
+slice_name: Active Workforce by Tenure Band
+description: 'Half the organization (50.6%) has joined within the last 3 years (1-3
+  yrs: 123; <1 yr: 97), showing strong junior-to-mid career hiring.'
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 2__table
+  viz_type: echarts_timeseries_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: COUNT(DISTINCT employee_id)
+    label: Active Employees
+  groupby:
+  - tenure_band
+  show_value: true
+  y_axis_format: ',d'
+  order_desc: false
+query_context: null
+cache_timeout: null
+uuid: 310eaae6-3f7d-43d2-9676-097fa8760d8d
+version: 1.0.0
+dataset_uuid: 2ac498bc-2b90-4922-8b4d-a562ef98dce2

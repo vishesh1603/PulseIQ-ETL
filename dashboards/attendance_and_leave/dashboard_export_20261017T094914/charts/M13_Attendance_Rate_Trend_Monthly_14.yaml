@@ -1,0 +1,27 @@
+slice_name: M13 Attendance Rate Trend (Monthly)
+description: Attendance hovers stably between 93.3% and 95.5%, displaying seasonal
+  dips in May (92.9%) and peaks in July (95.5%).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  datasource: 3__table
+  viz_type: echarts_timeseries_line
+  metrics:
+  - expressionType: SQL
+    sqlExpression: (SUM(present_days) + 0.5 * SUM(half_days_unpaid)) / NULLIF(SUM(scheduled_days),
+      0) * 100
+    label: Attendance Rate %
+  granularity_sqla: month_end_date
+  time_grain_sqla: P1M
+  color_scheme: supersetColors
+  y_axis_format: .1f
+  y_axis_title: Attendance %
+  show_value: false
+  rich_tooltip: true
+  x_axis_time_format: '%b %Y'
+query_context: null
+cache_timeout: null
+uuid: e60ba2b8-9935-43a5-8a67-adf14b044483
+version: 1.0.0
+dataset_uuid: d8270a2a-908a-4021-bc1e-ae84514cd249

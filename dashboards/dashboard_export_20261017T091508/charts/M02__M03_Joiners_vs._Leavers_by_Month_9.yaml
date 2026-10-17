@@ -1,0 +1,26 @@
+slice_name: M02 & M03 Joiners vs. Leavers by Month
+description: "Hiring consistently outpaced leavers across 2025\u20132026, reaching\
+  \ a peak net addition of +14 in Sep 2026."
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 1__table
+  viz_type: echarts_timeseries_bar
+  granularity_sqla: month_end
+  time_grain_sqla: P1M
+  time_range: '2025-01-01 : 2026-09-30'
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(joiners)
+    label: M02 Joiners (Hires)
+  - expressionType: SQL
+    sqlExpression: SUM(leavers)
+    label: M03 Leavers (Exits)
+  bar_stacked: false
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: 25360e71-1cd5-4fb7-afa9-7daed7f9a1f6
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

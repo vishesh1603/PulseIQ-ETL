@@ -1,0 +1,23 @@
+slice_name: Leave Requests by Start Day of Week
+description: Leave start dates peak on Friday (720 requests, 20.9%) and Thursday (714,
+  20.7%), with Monday following at 649 (18.9%).
+certified_by: null
+certification_details: null
+viz_type: dist_bar
+params:
+  datasource: 4__table
+  viz_type: dist_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: Total Requests
+  groupby:
+  - start_day_of_week
+  row_limit: 10
+  y_axis_format: ',d'
+  show_legend: false
+query_context: null
+cache_timeout: null
+uuid: b6b6f798-d84a-4e27-948a-9ac44ee825cc
+version: 1.0.0
+dataset_uuid: 624a962e-d2a5-4e3b-a6af-bb93754c97b7

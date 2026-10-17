@@ -1,0 +1,26 @@
+slice_name: M26 Anomaly Flags (Latest Month)
+description: 10 employee attendance anomalies flagged by ML models in Sep 2026.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 5__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: COUNT(result_id)
+    label: Anomaly Flags
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    filterOptionName: filter_sep2026
+    comparator: 2026-09
+    operator: ==
+    subject: year_month
+  subheader: 10 employee attendance anomalies flagged by ML models in Sep 2026.
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: eeb17f9f-1283-42ea-93be-0cf72534153b
+version: 1.0.0
+dataset_uuid: dd1d4add-f36f-4dc2-94d5-ff4e615a9535

@@ -1,0 +1,25 @@
+slice_name: M01 Department Split (Sep 2026)
+description: Engineering represents 37.9% of company headcount (167 staff), followed
+  by Customer Support (59) and Data & AI (52).
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 1__table
+  viz_type: echarts_timeseries_bar
+  time_range: '2026-09-01 : 2026-09-30'
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(headcount_end)
+    label: Headcount
+  groupby:
+  - department_name
+  orientation: horizontal
+  show_value: true
+  y_axis_format: ',d'
+  order_desc: true
+query_context: null
+cache_timeout: null
+uuid: 0bddaeb2-217a-49c7-9bf2-c0169cfdcdb1
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

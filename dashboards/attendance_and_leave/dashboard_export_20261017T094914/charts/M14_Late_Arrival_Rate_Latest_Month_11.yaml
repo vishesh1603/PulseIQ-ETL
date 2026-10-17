@@ -1,0 +1,26 @@
+slice_name: M14 Late Arrival Rate (Latest Month)
+description: 7.1% of present employee days recorded late check-ins in Sep 2026.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 3__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(late_arrivals)::numeric / NULLIF(SUM(present_days), 0) * 100
+    label: Late Arrival Rate %
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    filterOptionName: filter_sep2026
+    comparator: 2026-09
+    operator: ==
+    subject: year_month
+  subheader: 7.1% of present employee days recorded late check-ins in Sep 2026.
+  y_axis_format: .1f
+query_context: null
+cache_timeout: null
+uuid: 1402f06d-c7f8-4663-9e37-7694ccaaa57c
+version: 1.0.0
+dataset_uuid: d8270a2a-908a-4021-bc1e-ae84514cd249

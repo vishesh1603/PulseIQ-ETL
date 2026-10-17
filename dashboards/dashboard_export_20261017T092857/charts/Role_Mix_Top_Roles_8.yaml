@@ -1,0 +1,25 @@
+slice_name: "Role Mix \u2014 Top Roles"
+description: Core technical engineering positions lead the workforce, tied at 29 each
+  for QA Engineers and Software Engineers.
+certified_by: null
+certification_details: null
+viz_type: dist_bar
+params:
+  datasource: 2__table
+  viz_type: dist_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: COUNT(DISTINCT employee_id)
+    label: Active Employees
+  groupby:
+  - role_title
+  row_limit: 10
+  show_legend: false
+  time_range: No filter
+  order_desc: true
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: 35ecd5dd-d3ce-46f7-ae4a-f84987abcfc8
+version: 1.0.0
+dataset_uuid: 2ac498bc-2b90-4922-8b4d-a562ef98dce2

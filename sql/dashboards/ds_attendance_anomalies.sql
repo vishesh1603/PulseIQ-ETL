@@ -1,0 +1,30 @@
+-- Dataset: ds_attendance_anomalies
+-- Used for AI attendance anomaly trends, reason breakdown, and risk scoring
+SELECT 
+    result_id,
+    record_id,
+    employee_id,
+    full_name,
+    department_id,
+    department_name,
+    period_date,
+    period_key,
+    month_end,
+    year_month,
+    year,
+    month_number,
+    anomaly_score,
+    flagged,
+    reason_code,
+    reason_text,
+    model_version,
+    scored_at,
+    scheduled_days,
+    present_days,
+    wfh_days,
+    half_days_unpaid,
+    paid_leave_days,
+    unpaid_absence_days,
+    late_arrivals,
+    attendance_rate
+FROM dw.v_attendance_anomaly;

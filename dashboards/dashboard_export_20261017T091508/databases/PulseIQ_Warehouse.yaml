@@ -1,0 +1,16 @@
+database_name: PulseIQ Warehouse
+sqlalchemy_uri: postgresql://superset_ro:superset_ro_pass@warehouse:5432/pulseiq
+cache_timeout: null
+expose_in_sqllab: true
+allow_run_async: false
+allow_ctas: false
+allow_cvas: false
+allow_dml: false
+allow_file_upload: false
+extra:
+  metadata_params: {}
+  engine_params: {}
+  metadata_cache_timeout: {}
+  schemas_allowed_for_file_upload: []
+uuid: 0be92f58-177f-44ef-9e41-cbee86062bd5
+version: 1.0.0

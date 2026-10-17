@@ -1,0 +1,26 @@
+slice_name: M26 AI Attendance Anomalies by Reason Code
+description: Pattern shifts account for 56.6% of flags (125 incidents), peaking at
+  22 anomalies in July 2026.
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_bar
+params:
+  datasource: 5__table
+  viz_type: echarts_timeseries_bar
+  metrics:
+  - expressionType: SQL
+    sqlExpression: COUNT(*)
+    label: Flag Count
+  groupby:
+  - reason_code
+  granularity_sqla: month_end
+  time_grain_sqla: P1M
+  stack: true
+  y_axis_format: ',d'
+  y_axis_title: Anomaly Count
+  x_axis_time_format: '%b %Y'
+query_context: null
+cache_timeout: null
+uuid: 5d2cc35d-793f-4284-bc69-8312cfb839d6
+version: 1.0.0
+dataset_uuid: dd1d4add-f36f-4dc2-94d5-ff4e615a9535

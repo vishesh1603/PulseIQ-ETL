@@ -1,0 +1,26 @@
+slice_name: M15 Unpaid Leave Days (Latest Month)
+description: 85.5 total unpaid absence and leave days registered in Sep 2026.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 3__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(unpaid_absence_days + 0.5 * half_days_unpaid)
+    label: Unpaid Leave Days
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    filterOptionName: filter_sep2026
+    comparator: 2026-09
+    operator: ==
+    subject: year_month
+  subheader: 85.5 total unpaid absence and leave days registered in Sep 2026.
+  y_axis_format: .1f
+query_context: null
+cache_timeout: null
+uuid: 2d6bba47-07c2-4858-add7-bd45db9017f7
+version: 1.0.0
+dataset_uuid: d8270a2a-908a-4021-bc1e-ae84514cd249

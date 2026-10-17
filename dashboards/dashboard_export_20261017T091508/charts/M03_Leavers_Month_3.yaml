@@ -1,0 +1,20 @@
+slice_name: M03 Leavers (Month)
+description: 3 employees exited in Sep 2026 (2 voluntary resignations, 1 other).
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(leavers)
+    label: Leavers
+  time_range: '2026-09-01 : 2026-09-30'
+  subheader: Exits in Sep 2026 (2 voluntary, 1 other)
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: fa2a32a3-92d0-4e39-b45f-875f8d351796
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

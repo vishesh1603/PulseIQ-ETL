@@ -1,0 +1,28 @@
+slice_name: M01 Headcount Trend (Monthly)
+description: Headcount expanded from 380 in April 2025 to 441 in September 2026 (+16.1%),
+  with accelerated expansion in Q3 2026.
+certified_by: null
+certification_details: null
+viz_type: echarts_timeseries_line
+params:
+  datasource: 1__table
+  viz_type: echarts_timeseries_line
+  granularity_sqla: month_end
+  time_grain_sqla: P1M
+  time_range: '2020-01-01 : 2026-10-01'
+  metrics:
+  - expressionType: SQL
+    sqlExpression: SUM(headcount_end)
+    label: Total Headcount
+  y_axis_format: ',d'
+  color_scheme: supersetColors
+  seriesType: line
+  show_value: false
+  area: true
+  opacity: 0.2
+  rich_tooltip: true
+query_context: null
+cache_timeout: null
+uuid: cbaac755-4285-4229-9f9d-d480d086fbce
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76

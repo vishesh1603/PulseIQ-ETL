@@ -1,0 +1,351 @@
+dashboard_title: Headcount & Departments
+description: null
+css: null
+slug: headcount-and-departments
+certified_by: null
+certification_details: null
+published: true
+uuid: 33c7c5cf-e91b-4d83-b85a-066f6288ffea
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  GRID_ID:
+    children:
+    - HEADER_ROW
+    - ROW_KPIS
+    - ROW_MID_1
+    - ROW_MID_2
+    - ROW_BOTTOM
+    - ROW-N-Z10662QI
+    id: GRID_ID
+    type: GRID
+  HEADER_ROW:
+    children:
+    - HEADER_MARKDOWN
+    id: HEADER_ROW
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+  HEADER_MARKDOWN:
+    children: []
+    id: HEADER_MARKDOWN
+    meta:
+      code: '# PulseIQ: Headcount & Departments Dashboard
+
+        **As of 30 September 2026** | Filter by Department or Time Period below. All
+        metrics match warehouse truth in schema `dw`.'
+      height: 50
+      width: 12
+    type: MARKDOWN
+  ROW_KPIS:
+    children:
+    - CHART-1
+    - CHART-2
+    - CHART-3
+    - CHART-4
+    id: ROW_KPIS
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+  CHART-1:
+    children: []
+    id: CHART-1
+    meta:
+      chartId: 1
+      height: 30
+      sliceName: M01 Headcount
+      width: 3
+    type: CHART
+  CHART-2:
+    children: []
+    id: CHART-2
+    meta:
+      chartId: 2
+      height: 30
+      sliceName: M02 Joiners (Month)
+      width: 3
+    type: CHART
+  CHART-3:
+    children: []
+    id: CHART-3
+    meta:
+      chartId: 3
+      height: 30
+      sliceName: M03 Leavers (Month)
+      width: 3
+    type: CHART
+  CHART-4:
+    children: []
+    id: CHART-4
+    meta:
+      chartId: 4
+      height: 30
+      sliceName: M04 Attrition Rate (Monthly)
+      width: 3
+    type: CHART
+  ROW_MID_1:
+    children:
+    - CHART-5
+    - CHART-6
+    id: ROW_MID_1
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+  CHART-5:
+    children: []
+    id: CHART-5
+    meta:
+      chartId: 5
+      height: 60
+      sliceName: M01 Headcount Trend (Monthly)
+      width: 6
+    type: CHART
+  CHART-6:
+    children: []
+    id: CHART-6
+    meta:
+      chartId: 6
+      height: 60
+      sliceName: M01 Department Split (Sep 2026)
+      width: 6
+    type: CHART
+  ROW_MID_2:
+    children:
+    - CHART-7
+    - CHART-8
+    id: ROW_MID_2
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+  CHART-7:
+    children: []
+    id: CHART-7
+    meta:
+      chartId: 7
+      height: 60
+      sliceName: Active Workforce by Tenure Band
+      width: 6
+    type: CHART
+  CHART-8:
+    children: []
+    id: CHART-8
+    meta:
+      chartId: 8
+      height: 60
+      sliceName: "Role Mix \u2014 Top Roles"
+      width: 6
+    type: CHART
+  ROW_BOTTOM:
+    children:
+    - CHART-9
+    id: ROW_BOTTOM
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+  CHART-9:
+    children: []
+    id: CHART-9
+    meta:
+      chartId: 9
+      height: 60
+      sliceName: M02 & M03 Joiners vs. Leavers by Month
+      width: 12
+    type: CHART
+  ROW-N-Z10662QI:
+    children:
+    - CHART-48A57X63
+    - CHART-BBCEDJTB
+    - CHART-MW6M378P
+    - CHART-QKHXKH21
+    - CHART-BC8O1CTK
+    - CHART-2TNF69P8
+    - CHART-M010W22D
+    - CHART-ANHT1ABX
+    - CHART-WFXTSGVI
+    id: ROW-N-Z10662QI
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-48A57X63:
+    children: []
+    id: CHART-48A57X63
+    meta:
+      chartId: 6
+      height: 50
+      sliceName: M01 Department Split (Sep 2026)
+      uuid: 0bddaeb2-217a-49c7-9bf2-c0169cfdcdb1
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-BBCEDJTB:
+    children: []
+    id: CHART-BBCEDJTB
+    meta:
+      chartId: 1
+      height: 50
+      sliceName: M01 Headcount
+      uuid: 82c0406e-48e8-44de-8b82-228df1e27304
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-MW6M378P:
+    children: []
+    id: CHART-MW6M378P
+    meta:
+      chartId: 4
+      height: 50
+      sliceName: M04 Attrition Rate (Monthly)
+      uuid: dce47409-9d9e-4f22-abb0-8ea778e10efe
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-QKHXKH21:
+    children: []
+    id: CHART-QKHXKH21
+    meta:
+      chartId: 8
+      height: 50
+      sliceName: "Role Mix \u2014 Top Roles"
+      uuid: 35ecd5dd-d3ce-46f7-ae4a-f84987abcfc8
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-BC8O1CTK:
+    children: []
+    id: CHART-BC8O1CTK
+    meta:
+      chartId: 3
+      height: 50
+      sliceName: M03 Leavers (Month)
+      uuid: fa2a32a3-92d0-4e39-b45f-875f8d351796
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-2TNF69P8:
+    children: []
+    id: CHART-2TNF69P8
+    meta:
+      chartId: 2
+      height: 50
+      sliceName: M02 Joiners (Month)
+      uuid: f75b81bc-9973-4294-baf5-e3d4c127b772
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-M010W22D:
+    children: []
+    id: CHART-M010W22D
+    meta:
+      chartId: 5
+      height: 50
+      sliceName: M01 Headcount Trend (Monthly)
+      uuid: cbaac755-4285-4229-9f9d-d480d086fbce
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-ANHT1ABX:
+    children: []
+    id: CHART-ANHT1ABX
+    meta:
+      chartId: 9
+      height: 50
+      sliceName: M02 & M03 Joiners vs. Leavers by Month
+      uuid: 25360e71-1cd5-4fb7-afa9-7daed7f9a1f6
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+  CHART-WFXTSGVI:
+    children: []
+    id: CHART-WFXTSGVI
+    meta:
+      chartId: 7
+      height: 50
+      sliceName: Active Workforce by Tenure Band
+      uuid: 310eaae6-3f7d-43d2-9676-097fa8760d8d
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-Z10662QI
+metadata:
+  color_scheme: supersetColors
+  label_colors:
+    Total Headcount: '#0072B2'
+    Engineering: '#0072B2'
+    M02 Joiners (Hires): '#009E73'
+    M03 Leavers (Exits): '#D55E00'
+  native_filter_configuration:
+  - id: NATIVE_FILTER_DEPT
+    name: Department
+    filterType: filter_select
+    targets:
+    - column:
+        name: department_name
+      datasetUuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76
+    - column:
+        name: department_name
+      datasetUuid: 2ac498bc-2b90-4922-8b4d-a562ef98dce2
+    defaultDataMask:
+      filterState:
+        value: null
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    isInstant: true
+    type: NATIVE_FILTER
+  - id: NATIVE_FILTER_TIME
+    name: Time Period
+    filterType: filter_time
+    targets:
+    - column:
+        name: month_end
+      datasetUuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76
+    defaultDataMask:
+      filterState:
+        value: '2020-01-01 : 2026-09-30'
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    isInstant: true
+    type: NATIVE_FILTER
+  expanded_slices: {}
+  refresh_frequency: 0
+  timed_refresh_immune_slices: []
+version: 1.0.0

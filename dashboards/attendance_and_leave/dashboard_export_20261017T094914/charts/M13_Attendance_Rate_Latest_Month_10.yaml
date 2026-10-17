@@ -1,0 +1,27 @@
+slice_name: M13 Attendance Rate (Latest Month)
+description: Company attendance reached 95.2% in September 2026, rising 0.9% month-over-month.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 3__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: (SUM(present_days) + 0.5 * SUM(half_days_unpaid)) / NULLIF(SUM(scheduled_days),
+      0) * 100
+    label: Attendance Rate %
+  adhoc_filters:
+  - clause: WHERE
+    expressionType: SIMPLE
+    filterOptionName: filter_sep2026
+    comparator: 2026-09
+    operator: ==
+    subject: year_month
+  subheader: Company attendance reached 95.2% in September 2026, rising 0.9% month-over-month.
+  y_axis_format: .1f
+query_context: null
+cache_timeout: null
+uuid: 6ac90fe9-e3a4-4f83-9533-e2a9f20816b3
+version: 1.0.0
+dataset_uuid: d8270a2a-908a-4021-bc1e-ae84514cd249

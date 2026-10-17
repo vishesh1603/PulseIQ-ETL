@@ -1,0 +1,426 @@
+dashboard_title: Attendance & Leave Trends
+description: null
+css: null
+slug: attendance-and-leave
+certified_by: null
+certification_details: null
+published: true
+uuid: 7dd383c3-c875-48c5-b85f-f6e0ddf26f2d
+position:
+  DASHBOARD_VERSION_KEY: v2
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  GRID_ID:
+    children:
+    - HEADER_ID
+    - ROW_KPIS
+    - ROW_MID_1
+    - ROW_MID_2
+    - ROW_BOTTOM
+    - ROW-N-UAUKSL1M
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: '# Attendance & Leave Trends
+
+        **Visual analysis of workforce attendance patterns, leave dynamics, and AI-detected
+        behavioral anomalies.**'
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: MARKDOWN
+  ROW_KPIS:
+    children:
+    - CHART-10
+    - CHART-11
+    - CHART-12
+    - CHART-13
+    id: ROW_KPIS
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  CHART-10:
+    children: []
+    id: CHART-10
+    meta:
+      chartId: 10
+      height: 30
+      sliceName: M13 Attendance Rate (Latest Month)
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_KPIS
+    type: CHART
+  CHART-11:
+    children: []
+    id: CHART-11
+    meta:
+      chartId: 11
+      height: 30
+      sliceName: M14 Late Arrival Rate (Latest Month)
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_KPIS
+    type: CHART
+  CHART-12:
+    children: []
+    id: CHART-12
+    meta:
+      chartId: 12
+      height: 30
+      sliceName: M15 Unpaid Leave Days (Latest Month)
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_KPIS
+    type: CHART
+  CHART-13:
+    children: []
+    id: CHART-13
+    meta:
+      chartId: 13
+      height: 30
+      sliceName: M26 Anomaly Flags (Latest Month)
+      width: 3
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_KPIS
+    type: CHART
+  ROW_MID_1:
+    children:
+    - CHART-14
+    - CHART-15
+    id: ROW_MID_1
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  CHART-14:
+    children: []
+    id: CHART-14
+    meta:
+      chartId: 14
+      height: 65
+      sliceName: M13 Attendance Rate Trend (Monthly)
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_MID_1
+    type: CHART
+  CHART-15:
+    children: []
+    id: CHART-15
+    meta:
+      chartId: 15
+      height: 65
+      sliceName: M26 AI Attendance Anomalies by Reason Code
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_MID_1
+    type: CHART
+  ROW_MID_2:
+    children:
+    - CHART-16
+    - CHART-17
+    id: ROW_MID_2
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  CHART-16:
+    children: []
+    id: CHART-16
+    meta:
+      chartId: 16
+      height: 65
+      sliceName: Leave Days by Leave Type
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_MID_2
+    type: CHART
+  CHART-17:
+    children: []
+    id: CHART-17
+    meta:
+      chartId: 17
+      height: 65
+      sliceName: Leave Requests by Start Day of Week
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_MID_2
+    type: CHART
+  ROW_BOTTOM:
+    children:
+    - CHART-18
+    id: ROW_BOTTOM
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: ROW
+  CHART-18:
+    children: []
+    id: CHART-18
+    meta:
+      chartId: 18
+      height: 65
+      sliceName: Department Attendance Rate (Sep 2026)
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW_BOTTOM
+    type: CHART
+  ROW-N-UAUKSL1M:
+    children:
+    - CHART-EVYW5I53
+    - CHART-HFZEDH69
+    - CHART-X3Q9DH6R
+    - CHART-3EP5CKDZ
+    - CHART-N0PAXQZ9
+    - CHART-KT5APT3E
+    - CHART-Q5I88L5A
+    - CHART-DHW3EK70
+    - CHART-1JQKQNFK
+    id: ROW-N-UAUKSL1M
+    meta:
+      '0': ROOT_ID
+      background: BACKGROUND_TRANSPARENT
+    type: ROW
+    parents:
+    - ROOT_ID
+    - GRID_ID
+  CHART-EVYW5I53:
+    children: []
+    id: CHART-EVYW5I53
+    meta:
+      chartId: 11
+      height: 50
+      sliceName: M14 Late Arrival Rate (Latest Month)
+      uuid: 1402f06d-c7f8-4663-9e37-7694ccaaa57c
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-HFZEDH69:
+    children: []
+    id: CHART-HFZEDH69
+    meta:
+      chartId: 17
+      height: 50
+      sliceName: Leave Requests by Start Day of Week
+      uuid: b6b6f798-d84a-4e27-948a-9ac44ee825cc
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-X3Q9DH6R:
+    children: []
+    id: CHART-X3Q9DH6R
+    meta:
+      chartId: 15
+      height: 50
+      sliceName: M26 AI Attendance Anomalies by Reason Code
+      uuid: 5d2cc35d-793f-4284-bc69-8312cfb839d6
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-3EP5CKDZ:
+    children: []
+    id: CHART-3EP5CKDZ
+    meta:
+      chartId: 12
+      height: 50
+      sliceName: M15 Unpaid Leave Days (Latest Month)
+      uuid: 2d6bba47-07c2-4858-add7-bd45db9017f7
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-N0PAXQZ9:
+    children: []
+    id: CHART-N0PAXQZ9
+    meta:
+      chartId: 18
+      height: 50
+      sliceName: Department Attendance Rate (Sep 2026)
+      uuid: ff1313a8-d4b3-4ffd-bdf9-fdd76e557db7
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-KT5APT3E:
+    children: []
+    id: CHART-KT5APT3E
+    meta:
+      chartId: 14
+      height: 50
+      sliceName: M13 Attendance Rate Trend (Monthly)
+      uuid: e60ba2b8-9935-43a5-8a67-adf14b044483
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-Q5I88L5A:
+    children: []
+    id: CHART-Q5I88L5A
+    meta:
+      chartId: 13
+      height: 50
+      sliceName: M26 Anomaly Flags (Latest Month)
+      uuid: eeb17f9f-1283-42ea-93be-0cf72534153b
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-DHW3EK70:
+    children: []
+    id: CHART-DHW3EK70
+    meta:
+      chartId: 10
+      height: 50
+      sliceName: M13 Attendance Rate (Latest Month)
+      uuid: 6ac90fe9-e3a4-4f83-9533-e2a9f20816b3
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+  CHART-1JQKQNFK:
+    children: []
+    id: CHART-1JQKQNFK
+    meta:
+      chartId: 16
+      height: 50
+      sliceName: Leave Days by Leave Type
+      uuid: 0caa3f1f-90a3-47fc-9e21-34e9d9e93e3a
+      width: 4
+    type: CHART
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - ROW-N-UAUKSL1M
+metadata:
+  color_scheme: supersetColors
+  label_colors:
+    Attendance Rate %: '#0072B2'
+    PATTERN_SHIFT: '#E69F00'
+    NO_ATTENDANCE: '#D55E00'
+    LONG_UNPAID_ABSENCE: '#CC79A7'
+    FREQUENT_LATE: '#56B4E9'
+    Earned (Privilege) Leave: '#0072B2'
+    Casual Leave: '#009E73'
+    Sick Leave: '#E69F00'
+    Maternity Leave: '#CC79A7'
+    Loss of Pay: '#D55E00'
+  native_filter_configuration:
+  - id: NATIVE_FILTER_DEPT
+    name: Department
+    filterType: filter_select
+    targets:
+    - column:
+        name: department_name
+      datasetUuid: d8270a2a-908a-4021-bc1e-ae84514cd249
+    - column:
+        name: department_name
+      datasetUuid: 624a962e-d2a5-4e3b-a6af-bb93754c97b7
+    - column:
+        name: department_name
+      datasetUuid: dd1d4add-f36f-4dc2-94d5-ff4e615a9535
+    defaultDataMask:
+      filterState:
+        value: null
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    isInstant: true
+    type: NATIVE_FILTER
+  - id: NATIVE_FILTER_TIME
+    name: Time Period
+    filterType: filter_time
+    targets:
+    - column:
+        name: month_end_date
+      datasetUuid: d8270a2a-908a-4021-bc1e-ae84514cd249
+    - column:
+        name: start_date
+      datasetUuid: 624a962e-d2a5-4e3b-a6af-bb93754c97b7
+    - column:
+        name: month_end
+      datasetUuid: dd1d4add-f36f-4dc2-94d5-ff4e615a9535
+    defaultDataMask:
+      filterState:
+        value: '2025-04-01 : 2026-10-01'
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    isInstant: true
+    type: NATIVE_FILTER
+  - id: NATIVE_FILTER_LEAVE_TYPE
+    name: Leave Type
+    filterType: filter_select
+    targets:
+    - column:
+        name: leave_type_name
+      datasetUuid: 624a962e-d2a5-4e3b-a6af-bb93754c97b7
+    defaultDataMask:
+      filterState:
+        value: null
+    cascadeParentIds: []
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    isInstant: true
+    type: NATIVE_FILTER
+  expanded_slices: {}
+  refresh_frequency: 0
+  timed_refresh_immune_slices: []
+version: 1.0.0

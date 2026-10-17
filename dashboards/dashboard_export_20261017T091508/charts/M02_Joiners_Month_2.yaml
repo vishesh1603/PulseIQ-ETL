@@ -1,0 +1,20 @@
+slice_name: M02 Joiners (Month)
+description: 17 new hires joined in Sep 2026, highest monthly inflow this year.
+certified_by: null
+certification_details: null
+viz_type: big_number_total
+params:
+  datasource: 1__table
+  viz_type: big_number_total
+  metric:
+    expressionType: SQL
+    sqlExpression: SUM(joiners)
+    label: Joiners
+  time_range: '2026-09-01 : 2026-09-30'
+  subheader: New hires in Sep 2026 (+9 vs Aug 2026)
+  y_axis_format: ',d'
+query_context: null
+cache_timeout: null
+uuid: f75b81bc-9973-4294-baf5-e3d4c127b772
+version: 1.0.0
+dataset_uuid: 6e5c8156-bd27-4f70-8576-bc1f58f9ef76
