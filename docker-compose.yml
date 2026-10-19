@@ -66,6 +66,24 @@ services:
       - ./sql:/app/sql:ro
       - ./scripts:/app/scripts:ro
 
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    depends_on:
+      warehouse:
+        condition: service_healthy
+    environment:
+      WAREHOUSE_HOST: warehouse
+      WAREHOUSE_PORT: 5432
+      WAREHOUSE_DB: ${WAREHOUSE_DB:-pulseiq}
+      WAREHOUSE_USER: ${WAREHOUSE_USER:-pulseiq}
+      WAREHOUSE_PASSWORD: ${WAREHOUSE_PASSWORD:-pulseiq}
+    volumes:
+      - .:/app
+
+
 
 volumes:
   warehouse_data:
