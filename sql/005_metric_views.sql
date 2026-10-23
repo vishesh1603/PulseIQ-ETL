@@ -645,3 +645,30 @@ LEFT JOIN dw.dim_date d ON d.date_key = fc.forecast_month_key
 LEFT JOIN dw.fact_headcount_monthly hc 
     ON hc.date_key = fc.forecast_month_key 
    AND hc.department_key = dep.department_key;
+
+
+-- --------------------------------------------------------------------
+-- M29: WFH Share (Department x Month) [Mini Challenge]
+-- Business definition: Share of present days worked remotely from home
+-- Formula: SUM(wfh_days) / NULLIF(SUM(present_days), 0) * 100
+-- Privacy: min group size 5 employees
+-- --------------------------------------------------------------------
+CREATE OR REPLACE VIEW dw.metric_m29_wfh_share AS
+SELECT 
+    d.year_month,
+    d.month_end_date,
+    dep.department_id,
+    dep.department_name,
+    COUNT(DISTINCT f.employee_id) AS employees_present,
+    SUM(f.wfh_days) AS total_wfh_days,
+    SUM(f.present_days) AS total_present_days,
+    CASE 
+        WHEN COUNT(DISTINCT f.employee_id) < 5 THEN NULL 
+        ELSE ROUND((SUM(f.wfh_days)::numeric / NULLIF(SUM(f.present_days), 0) * 100), 2) 
+    END AS wfh_share_pct,
+    ROUND((SUM(f.wfh_days)::numeric / NULLIF(SUM(f.present_days), 0) * 100), 2) AS unsuppressed_wfh_share_pct,
+    CASE WHEN COUNT(DISTINCT f.employee_id) < 5 THEN TRUE ELSE FALSE END AS is_suppressed
+FROM dw.fact_attendance_monthly f
+JOIN dw.dim_department dep ON dep.department_key = f.department_key
+JOIN dw.dim_date d ON d.date_key = f.date_key
+GROUP BY d.year_month, d.month_end_date, dep.department_id, dep.department_name;

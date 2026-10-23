@@ -65,6 +65,7 @@ kpi_sql = """
     SELECT 
         ROUND((SUM(f.present_days) + 0.5 * SUM(f.half_days_unpaid)) / NULLIF(SUM(f.scheduled_days), 0) * 100, 2) AS attendance_rate_pct,
         ROUND(SUM(f.late_arrivals)::numeric / NULLIF(SUM(f.present_days), 0) * 100, 2) AS late_arrival_rate_pct,
+        ROUND(SUM(f.wfh_days)::numeric / NULLIF(SUM(f.present_days), 0) * 100, 2) AS wfh_share_pct,
         SUM(f.unpaid_absence_days + 0.5 * f.half_days_unpaid) AS lop_days_attendance
     FROM dw.fact_attendance_monthly f
     JOIN dw.dim_date d ON d.date_key = f.date_key
@@ -72,7 +73,7 @@ kpi_sql = """
 """
 kpi_res = query_df(kpi_sql, (selected_month,))
 
-c1, c2, c3 = st.columns(3)
+c1, c2, c3, c4 = st.columns(4)
 if not kpi_res.empty:
     with c1:
         st.markdown(f"""
@@ -91,6 +92,14 @@ if not kpi_res.empty:
         </div>
         """, unsafe_allow_html=True)
     with c3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="kpi-title">M29 WFH Share [New]</div>
+            <div class="kpi-value" style="color: #0072B2;">{kpi_res.iloc[0]['wfh_share_pct']}%</div>
+            <div class="kpi-sub">Work from home present days</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c4:
         st.markdown(f"""
         <div class="metric-card">
             <div class="kpi-title">M15 Leave Without Pay</div>
