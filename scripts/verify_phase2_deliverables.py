@@ -11,6 +11,13 @@ import pandas as pd
 import psycopg
 import sys
 
+# Ensure clean UTF-8 console output on Windows
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
+
 PG_CONN = "postgresql://pulseiq:pulseiq@localhost:5433/pulseiq"
 EXCEL_PATH = r"c:\Users\DELL\Downloads\pulseiq-etl1\data\raw\PulseIQ_Star_Schema_Dataset.xlsx"
 
@@ -106,9 +113,9 @@ def run_tests():
         """)
         recon_res = cur.fetchone()
         print(f"  -> Months Compared: {recon_res[0]} / 18")
-        print(f"  -> Maximum Variance to Answer Key: ₹{recon_res[1]:.2f}")
+        print(f"  -> Maximum Variance to Answer Key: Rs. {recon_res[1]:.2f}")
         assert recon_res[0] == 18 and recon_res[1] == 0.00, "Task 9 reconciliation failed"
-        print("  -> RESULT: PASS [18-month reconciliation exact match to the paisa (₹0.00 difference)]")
+        print("  -> RESULT: PASS [18-month reconciliation exact match to the paisa (Rs. 0.00 difference)]")
         tests_passed += 1
 
         # TEST 5: Task 10 - Budget Variance Hand Proof (D01, D00, D02 April 2025)
@@ -136,9 +143,9 @@ def run_tests():
         d00_var = float(b_rows[0][3])
         d01_var = float(b_rows[1][3])
         d02_var = float(b_rows[2][3])
-        print(f"  -> D00 Executive: Actual=₹{b_rows[0][1]:,.2f}, Budget=₹{b_rows[0][2]:,.2f}, Variance=₹{d00_var:+,.2f}")
-        print(f"  -> D01 Engineering: Actual=₹{b_rows[1][1]:,.2f}, Budget=₹{b_rows[1][2]:,.2f}, Variance=₹{d01_var:+,.2f}")
-        print(f"  -> D02 Product: Actual=₹{b_rows[2][1]:,.2f}, Budget=₹{b_rows[2][2]:,.2f}, Variance=₹{d02_var:+,.2f}")
+        print(f"  -> D00 Executive: Actual=Rs. {b_rows[0][1]:,.2f}, Budget=Rs. {b_rows[0][2]:,.2f}, Variance=Rs. {d00_var:+,.2f}")
+        print(f"  -> D01 Engineering: Actual=Rs. {b_rows[1][1]:,.2f}, Budget=Rs. {b_rows[1][2]:,.2f}, Variance=Rs. {d01_var:+,.2f}")
+        print(f"  -> D02 Product: Actual=Rs. {b_rows[2][1]:,.2f}, Budget=Rs. {b_rows[2][2]:,.2f}, Variance=Rs. {d02_var:+,.2f}")
         assert d01_var == -1911891.25 and d00_var == 1809.00 and d02_var == -461307.33, "Task 10 hand check failed"
         print("  -> RESULT: PASS [D00, D01, D02 April 2025 variances 100% verified]")
         tests_passed += 1
