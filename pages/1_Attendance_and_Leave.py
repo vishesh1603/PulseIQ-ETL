@@ -56,9 +56,11 @@ PG_PASS = os.getenv("WAREHOUSE_PASSWORD", "pulseiq")
 
 @st.cache_resource
 def get_db_connection():
-    return psycopg.connect(
+    conn = psycopg.connect(
         host=PG_HOST, port=PG_PORT, dbname=PG_DB, user=PG_USER, password=PG_PASS
     )
+    conn.autocommit = True
+    return conn
 
 def query_df(sql, params=None):
     conn = get_db_connection()
@@ -178,9 +180,9 @@ trend_df = query_df(trend_sql)
 
 # Fetch holidays by month
 holiday_sql = """
-    SELECT year_month, COUNT(*) as holiday_count, STRING_AGG(day_of_week || ' ' || TO_CHAR(date, 'DD Mon'), ', ') as holiday_dates
+    SELECT year_month, COUNT(*) as holiday_count, STRING_AGG(day_of_week || ' ' || TO_CHAR(full_date, 'DD Mon'), ', ') as holiday_dates
     FROM dw.dim_date
-    WHERE is_holiday = 'Y'
+    WHERE is_holiday IS TRUE
     GROUP BY year_month
 """
 holidays_df = query_df(holiday_sql)
