@@ -83,10 +83,10 @@ except Exception as e:
 # --- KPI Cards Row ---
 kpi_sql = """
     SELECT 
-        SUM(employees_paid) AS total_employees_paid,
+        SUM(g.employees_paid) AS total_employees_paid,
         SUM(unsuppressed_gross_pay) AS total_gross_pay,
         SUM(unsuppressed_employer_cost) AS total_employer_cost,
-        ROUND(SUM(unsuppressed_employer_cost) / NULLIF(SUM(employees_paid), 0), 2) AS avg_cost_per_head
+        ROUND(SUM(unsuppressed_employer_cost) / NULLIF(SUM(g.employees_paid), 0), 2) AS avg_cost_per_head
     FROM dw.metric_m07_gross_pay g
     JOIN dw.metric_m09_payroll_cost c ON g.year_month = c.year_month AND g.department_id = c.department_id
     WHERE g.year_month = %s
@@ -95,11 +95,16 @@ kpi_res = query_df(kpi_sql, (selected_month,))
 
 c1, c2, c3, c4 = st.columns(4)
 if not kpi_res.empty:
+    total_emp = int(kpi_res.iloc[0]['total_employees_paid'] or 0)
+    gross_pay = float(kpi_res.iloc[0]['total_gross_pay'] or 0)
+    emp_cost = float(kpi_res.iloc[0]['total_employer_cost'] or 0)
+    cost_per_head = float(kpi_res.iloc[0]['avg_cost_per_head'] or 0)
+
     with c1:
         st.markdown(f"""
         <div class="metric-card">
             <div class="kpi-title">Paid Employees</div>
-            <div class="kpi-value">{int(kpi_res.iloc[0]['total_employees_paid'] or 0)} Staff</div>
+            <div class="kpi-value">{total_emp} Staff</div>
             <div class="kpi-sub">Total staff with payroll record</div>
         </div>
         """, unsafe_allow_html=True)
@@ -107,23 +112,23 @@ if not kpi_res.empty:
         st.markdown(f"""
         <div class="metric-card">
             <div class="kpi-title">M07 Gross Pay</div>
-            <div class="kpi-value">₹{kpi_res.iloc[0]['total_gross_pay']/1e5:,.2f} L</div>
-            <div class="kpi-sub">₹{kpi_res.iloc[0]['total_gross_pay']:,.2f} total</div>
+            <div class="kpi-value">₹{gross_pay/1e5:,.2f} L</div>
+            <div class="kpi-sub">₹{gross_pay:,.2f} total</div>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown(f"""
         <div class="metric-card">
             <div class="kpi-title">M09 Employer Cost</div>
-            <div class="kpi-value" style="color: #0072B2;">₹{kpi_res.iloc[0]['total_employer_cost']/1e5:,.2f} L</div>
-            <div class="kpi-sub">₹{kpi_res.iloc[0]['total_employer_cost']:,.2f} total</div>
+            <div class="kpi-value" style="color: #0072B2;">₹{emp_cost/1e5:,.2f} L</div>
+            <div class="kpi-sub">₹{emp_cost:,.2f} total</div>
         </div>
         """, unsafe_allow_html=True)
     with c4:
         st.markdown(f"""
         <div class="metric-card">
             <div class="kpi-title">M10 Cost Per Head</div>
-            <div class="kpi-value" style="color: #009E73;">₹{kpi_res.iloc[0]['avg_cost_per_head']:,.2f}</div>
+            <div class="kpi-value" style="color: #009E73;">₹{cost_per_head:,.2f}</div>
             <div class="kpi-sub">Average employer cost per employee</div>
         </div>
         """, unsafe_allow_html=True)

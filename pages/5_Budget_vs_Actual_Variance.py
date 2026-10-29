@@ -115,10 +115,10 @@ kpi_res = query_df(kpi_sql, (selected_month, selected_month))
 
 c1, c2, c3, c4 = st.columns(4)
 if not kpi_res.empty:
-    act = kpi_res.iloc[0]['total_actual_cost']
-    bud = kpi_res.iloc[0]['total_budget_cost']
-    var = kpi_res.iloc[0]['total_variance']
-    var_pct = kpi_res.iloc[0]['total_variance_pct']
+    act = float(kpi_res.iloc[0]['total_actual_cost'] or 0)
+    bud = float(kpi_res.iloc[0]['total_budget_cost'] or 0)
+    var = float(kpi_res.iloc[0]['total_variance'] or 0)
+    var_pct = float(kpi_res.iloc[0]['total_variance_pct'] or 0)
     
     with c1:
         st.markdown(f"""
