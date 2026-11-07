@@ -9,31 +9,19 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import os
+import sys
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+from theme_utils import render_theme_toggle
 
 st.set_page_config(page_title="PulseIQ — Attendance & Leave Trends", page_icon="📅", layout="wide")
 
+plotly_template = render_theme_toggle()
+
 st.markdown("""
 <style>
-    .metric-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 16px;
-        border-left: 4px solid #0072B2;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .kpi-title { font-size: 13px; color: #555555; font-weight: 500; }
-    .kpi-value { font-size: 26px; color: #111111; font-weight: 700; }
-    .kpi-sub { font-size: 11px; color: #777777; }
-    .insight-box {
-        background-color: #edf2f7;
-        border-radius: 6px;
-        padding: 12px 16px;
-        font-size: 13.5px;
-        color: #2d3748;
-        margin-top: 8px;
-        margin-bottom: 20px;
-        border-left: 4px solid #0072B2;
-    }
     .holiday-badge {
         background-color: #E69F00;
         color: white;

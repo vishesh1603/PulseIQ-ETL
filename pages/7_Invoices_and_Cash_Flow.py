@@ -9,40 +9,16 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import os
+import sys
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+from theme_utils import render_theme_toggle
 
 st.set_page_config(page_title="PulseIQ — Invoices & Cash Flow", page_icon="💳", layout="wide")
 
-st.markdown("""
-<style>
-    .metric-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 16px;
-        border-left: 4px solid #0072B2;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .kpi-title { font-size: 13px; color: #555555; font-weight: 500; }
-    .kpi-value { font-size: 26px; color: #111111; font-weight: 700; }
-    .kpi-sub { font-size: 11px; color: #777777; }
-    .insight-box {
-        background-color: #edf2f7;
-        border-radius: 6px;
-        padding: 12px 16px;
-        font-size: 13.5px;
-        color: #2d3748;
-        margin-top: 8px;
-        margin-bottom: 20px;
-        border-left: 4px solid #0072B2;
-    }
-    .policy-banner {
-        background-color: #FEFCBF;
-        border-left: 6px solid #D69E2E;
-        padding: 12px 16px;
-        border-radius: 6px;
-        margin-bottom: 20px;
-    }
-</style>
-""", unsafe_allow_html=True)
+plotly_template = render_theme_toggle()
 
 PG_HOST = os.getenv("WAREHOUSE_HOST", "localhost")
 PG_PORT = os.getenv("WAREHOUSE_PORT", "5433")
@@ -167,7 +143,7 @@ with col_age_chart:
         color_discrete_sequence=['#009E73', '#E69F00', '#D55E00', '#999999', '#56B4E9'],
         labels={'total_amount': 'Outstanding Amount (₹)', 'ageing_bucket': 'Bucket'}
     )
-    fig_age.update_layout(height=360, template="simple_white", showlegend=False, margin=dict(l=20, r=20, t=10, b=20))
+    fig_age.update_layout(height=360, template=plotly_template, showlegend=False, margin=dict(l=20, r=20, t=10, b=20))
     st.plotly_chart(fig_age, use_container_width=True)
 
 with col_age_tbl:
@@ -227,7 +203,7 @@ fig_cash = go.Figure()
 fig_cash.add_trace(go.Bar(x=cash_df['month'], y=cash_df['cash_in'], name='Cash In (Collections)', marker_color='#0072B2'))
 fig_cash.add_trace(go.Bar(x=cash_df['month'], y=cash_df['total_cash_out'], name='Cash Out (Payroll + Vendors)', marker_color='#E69F00'))
 fig_cash.add_trace(go.Scatter(x=cash_df['month'], y=cash_df['net_cash_flow'], name='Net Cash Flow', mode='lines+markers', line=dict(color='#009E73', width=3)))
-fig_cash.update_layout(barmode='group', height=380, template="simple_white", margin=dict(l=20, r=20, t=10, b=20), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+fig_cash.update_layout(barmode='group', height=380, template=plotly_template, margin=dict(l=20, r=20, t=10, b=20), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
 st.plotly_chart(fig_cash, use_container_width=True)
 
 # --- Section 3: Client Delinquency Leaderboard & Think for Yourself ---

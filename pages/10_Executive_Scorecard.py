@@ -9,8 +9,16 @@ import psycopg
 import pandas as pd
 import plotly.graph_objects as go
 import os
+import sys
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+from theme_utils import render_theme_toggle
 
 st.set_page_config(page_title="PulseIQ — Executive Health Scorecard", page_icon="🏛️", layout="wide")
+
+plotly_template = render_theme_toggle()
 
 st.markdown("""
 <style>
@@ -23,36 +31,28 @@ st.markdown("""
     }
 
     .scorecard-card {
-        background-color: #ffffff;
         border-radius: 8px;
         padding: 16px 18px;
-        border: 1px solid #E2E8F0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         margin-bottom: 16px;
         transition: transform 0.15s ease-in-out;
     }
     .kpi-num {
         font-size: 12px;
         font-weight: 700;
-        color: #718096;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
     .kpi-name {
         font-size: 16px;
         font-weight: 700;
-        color: #1A202C;
         margin: 2px 0 6px 0;
     }
     .kpi-main-val {
         font-size: 26px;
         font-weight: 800;
-        color: #111111;
     }
     .kpi-target-tag {
         font-size: 12px;
-        color: #4A5568;
-        background-color: #EDF2F7;
         padding: 3px 8px;
         border-radius: 4px;
         display: inline-block;

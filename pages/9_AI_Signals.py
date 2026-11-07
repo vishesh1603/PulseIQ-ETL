@@ -10,44 +10,16 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import os
+import sys
+
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+from theme_utils import render_theme_toggle
 
 st.set_page_config(page_title="PulseIQ — AI Signals & Forecasts", page_icon="🤖", layout="wide")
 
-st.markdown("""
-<style>
-    .metric-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 16px;
-        border-left: 4px solid #0072B2;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-    .kpi-title { font-size: 13px; color: #555555; font-weight: 500; }
-    .kpi-value { font-size: 26px; color: #111111; font-weight: 700; }
-    .kpi-sub { font-size: 11px; color: #777777; }
-    .insight-box {
-        background-color: #edf2f7;
-        border-radius: 6px;
-        padding: 12px 16px;
-        font-size: 13.5px;
-        color: #2d3748;
-        margin-top: 8px;
-        margin-bottom: 20px;
-        border-left: 4px solid #0072B2;
-    }
-    .ai-badge {
-        display: inline-block;
-        background-color: #E2E8F0;
-        color: #2D3748;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 4px;
-        border-left: 3px solid #E69F00;
-        margin-bottom: 10px;
-    }
-</style>
-""", unsafe_allow_html=True)
+plotly_template = render_theme_toggle()
 
 PG_HOST = os.getenv("WAREHOUSE_HOST", "localhost")
 PG_PORT = os.getenv("WAREHOUSE_PORT", "5433")
@@ -169,7 +141,7 @@ with c_anom_chart:
         color_continuous_scale=['#56B4E9', '#E69F00', '#D55E00'],
         labels={'total_money_at_risk': 'Money at Risk (₹)', 'reason_code': 'Anomaly Cluster'}
     )
-    fig_anom.update_layout(height=360, template="simple_white", margin=dict(l=10, r=10, t=10, b=10))
+    fig_anom.update_layout(height=360, template=plotly_template, margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig_anom, use_container_width=True)
 
 with c_anom_tbl:
@@ -257,7 +229,7 @@ fig_fc.add_trace(go.Scatter(
 
 fig_fc.update_layout(
     height=400,
-    template="simple_white",
+    template=plotly_template,
     margin=dict(l=20, r=20, t=10, b=20),
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
 )
