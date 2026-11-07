@@ -154,6 +154,8 @@ anom_sql = """
     ORDER BY total_money_at_risk DESC NULLS LAST, signal_count DESC;
 """
 anom_df = query_df(anom_sql)
+anom_df['total_money_at_risk'] = pd.to_numeric(anom_df['total_money_at_risk'], errors='coerce').fillna(0).astype(float)
+anom_df['avg_model_score'] = pd.to_numeric(anom_df['avg_model_score'], errors='coerce').fillna(0).astype(float)
 
 c_anom_chart, c_anom_tbl = st.columns([1.1, 0.9])
 
@@ -196,6 +198,7 @@ hist_sql = """
     ORDER BY d.year_month;
 """
 hist_df = query_df(hist_sql)
+hist_df['headcount'] = pd.to_numeric(hist_df['headcount'], errors='coerce').fillna(0).astype(int)
 
 fc_sql = """
     SELECT 
@@ -208,6 +211,9 @@ fc_sql = """
     ORDER BY forecast_month;
 """
 fc_df = query_df(fc_sql)
+fc_df['forecast_value'] = pd.to_numeric(fc_df['forecast_value'], errors='coerce').fillna(0).astype(float)
+fc_df['lower_80'] = pd.to_numeric(fc_df['lower_80'], errors='coerce').fillna(0).astype(float)
+fc_df['upper_80'] = pd.to_numeric(fc_df['upper_80'], errors='coerce').fillna(0).astype(float)
 
 fig_fc = go.Figure()
 

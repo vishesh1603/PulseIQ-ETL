@@ -238,6 +238,13 @@ dept_sql = """
 """
 dept_df = query_df(dept_sql, (selected_month, selected_month, selected_month))
 
+# Ensure all numeric columns are strictly float/int for Plotly rendering
+dept_df['employer_cost'] = pd.to_numeric(dept_df['employer_cost'], errors='coerce').fillna(0).astype(float)
+dept_df['overtime_hours_per_head'] = pd.to_numeric(dept_df['overtime_hours_per_head'], errors='coerce').fillna(0).astype(float)
+dept_df['attrition_rate_pct'] = pd.to_numeric(dept_df['attrition_rate_pct'], errors='coerce').fillna(0).astype(float)
+dept_df['cost_per_head'] = pd.to_numeric(dept_df['cost_per_head'], errors='coerce').fillna(0).astype(float)
+dept_df['headcount_end'] = pd.to_numeric(dept_df['headcount_end'], errors='coerce').fillna(0).astype(int)
+
 col_chart, col_tbl = st.columns([1.1, 0.9])
 
 with col_chart:

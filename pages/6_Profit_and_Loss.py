@@ -186,6 +186,9 @@ with col_trend:
         ORDER BY l.posting_period;
     """
     trend_df = query_df(trend_sql)
+    trend_df['revenue'] = pd.to_numeric(trend_df['revenue'], errors='coerce').fillna(0).astype(float)
+    trend_df['expense'] = pd.to_numeric(trend_df['expense'], errors='coerce').fillna(0).astype(float)
+    trend_df['net_profit'] = pd.to_numeric(trend_df['net_profit'], errors='coerce').fillna(0).astype(float)
     fig_trend = go.Figure()
     fig_trend.add_trace(go.Bar(x=trend_df['year_month'], y=trend_df['revenue'], name='Revenue', marker_color='#0072B2'))
     fig_trend.add_trace(go.Bar(x=trend_df['year_month'], y=trend_df['expense'], name='Expense', marker_color='#E69F00'))
@@ -210,6 +213,7 @@ with c_cat:
         ORDER BY amount DESC;
     """
     cat_df = query_df(cat_sql, (selected_month,))
+    cat_df['amount'] = pd.to_numeric(cat_df['amount'], errors='coerce').fillna(0).astype(float)
     fig_cat = px.pie(
         cat_df,
         names='category',
@@ -236,6 +240,7 @@ with c_ven:
         LIMIT 10;
     """
     ven_df = query_df(ven_sql, (selected_month,))
+    ven_df['total_spend'] = pd.to_numeric(ven_df['total_spend'], errors='coerce').fillna(0).astype(float)
     fig_ven = px.bar(
         ven_df,
         x='total_spend',

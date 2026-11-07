@@ -154,6 +154,7 @@ age_sql = """
     ORDER BY MIN(COALESCE(days_past_due_at_cutoff, 0));
 """
 age_df = query_df(age_sql)
+age_df['total_amount'] = pd.to_numeric(age_df['total_amount'], errors='coerce').fillna(0).astype(float)
 
 col_age_chart, col_age_tbl = st.columns([1.1, 0.9])
 
@@ -218,6 +219,9 @@ cash_sql = """
     ORDER BY cin.month;
 """
 cash_df = query_df(cash_sql)
+cash_df['cash_in'] = pd.to_numeric(cash_df['cash_in'], errors='coerce').fillna(0).astype(float)
+cash_df['total_cash_out'] = pd.to_numeric(cash_df['total_cash_out'], errors='coerce').fillna(0).astype(float)
+cash_df['net_cash_flow'] = pd.to_numeric(cash_df['net_cash_flow'], errors='coerce').fillna(0).astype(float)
 
 fig_cash = go.Figure()
 fig_cash.add_trace(go.Bar(x=cash_df['month'], y=cash_df['cash_in'], name='Cash In (Collections)', marker_color='#0072B2'))
