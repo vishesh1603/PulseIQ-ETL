@@ -25,6 +25,7 @@ TABLES_TO_LOAD = [
     'fact_forecast',
     'budget_payroll_dept_month',
     'kpi_targets',
+    'reference_summary_dept_month',
 ]
 
 def clean_val(v):

@@ -208,3 +208,26 @@ CREATE TABLE IF NOT EXISTS dw.kpi_targets (
     task_completion_target_pct NUMERIC(6,2),
     PRIMARY KEY (department_id, month)
 );
+
+CREATE TABLE IF NOT EXISTS dw.reference_summary_dept_month (
+    department_id TEXT NOT NULL,
+    month TIMESTAMP NOT NULL,
+    employer_cost NUMERIC(16,2),
+    gross_pay NUMERIC(16,2),
+    overtime_pay NUMERIC(16,2),
+    employees_paid INTEGER,
+    overtime_hours NUMERIC(10,2),
+    late_arrivals INTEGER,
+    attendance_rate NUMERIC(6,4),
+    headcount_end INTEGER,
+    hires INTEGER,
+    exits INTEGER,
+    attrition_rate_monthly_pct NUMERIC(6,2),
+    tasks INTEGER,
+    tasks_done INTEGER,
+    story_points_done INTEGER,
+    task_completion_rate_pct NUMERIC(6,2),
+    cost_per_head NUMERIC(16,2),
+    overtime_share_pct NUMERIC(6,2),
+    PRIMARY KEY (department_id, month)
+);

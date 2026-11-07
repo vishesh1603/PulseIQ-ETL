@@ -58,7 +58,18 @@ Open your browser and navigate to:
 
 Run the automated test suites to verify that all metrics, 18-month financial reconciliations, and data checks pass 100%:
 
-### 1. Verify Phase 2 Deliverables (Tasks 6 to 10)
+### 1. Verify Phase 3 Deliverables (Tasks 11 to 15)
+```powershell
+python scripts/verify_phase3_deliverables.py
+```
+*Checks:*
+- [x] **Task 11**: P&L tie-out against `reconciliation_answer_key` (Revenue, Expense, Net Profit match to ₹0.00; DQ-04 audited)
+- [x] **Task 12**: Receivables aging buckets sum to exact open receivables (**₹139,394,278.00**) with open status rules
+- [x] **Task 13**: 4-Way cross-department join matches `reference_summary_dept_month` across all 198 rows with zero error
+- [x] **Task 14**: AI anomaly money-at-risk ranking and 80% confidence intervals for headcount forecasts
+- [x] **Task 15**: 8 Headline founder KPIs verified to pull exclusively from `dw.metric_*` views
+
+### 2. Verify Phase 2 Deliverables (Tasks 6 to 10)
 ```powershell
 python scripts/verify_phase2_deliverables.py
 ```
@@ -69,12 +80,12 @@ python scripts/verify_phase2_deliverables.py
 - [x] **Task 9**: 18-Month payroll reconciliation against `reconciliation_answer_key` (**₹0.00 difference**)
 - [x] **Task 10**: Budget variance sign rules & April 2025 hand checks (D00, D01, D02)
 
-### 2. Verify Foundation Phase (Tasks 1 to 5)
+### 3. Verify Foundation Phase (Tasks 1 to 5)
 ```powershell
 python scripts/verify_foundation_phase.py
 ```
 
-### 3. Run Pytest Unit & Warehouse Test Suites
+### 4. Run Pytest Unit & Warehouse Test Suites
 ```powershell
 pytest -v tests/
 ```
@@ -83,7 +94,7 @@ pytest -v tests/
 
 ## 📊 Dashboard Pages Overview
 
-The Streamlit app is organized into 5 dedicated executive pages (in `pages/`):
+The Streamlit app is organized into 10 dedicated executive pages (in `pages/`):
 
 | Page | File | Key Features & Metrics |
 | :--- | :--- | :--- |
@@ -93,6 +104,11 @@ The Streamlit app is organized into 5 dedicated executive pages (in `pages/`):
 | **3. Team Productivity** | [`pages/3_Team_Productivity.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/3_Team_Productivity.py) | **Task 8**: 16 engineering teams, 38 sprints, 28k tasks. M24 Velocity, cycle time, on-time completion %, cancelled/reopened task rules. |
 | **4. Payroll Reconciliation** | [`pages/4_Payroll_Cost_and_Reconciliation.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/4_Payroll_Cost_and_Reconciliation.py) | **Task 9**: M07 Gross Pay, M09 Employer Cost, M10 Cost Per Head, official 18-month reconciliation table (**exact match, ₹0.00 variance**), audit trail of 4 quarantined rows (`PI-X0001` to `PI-X0004`). |
 | **5. Budget Variance** | [`pages/5_Budget_vs_Actual_Variance.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/5_Budget_vs_Actual_Variance.py) | **Task 10**: Cost variance sign rule banner (`Actual - Budget`), department overspend ranking, operational KPI scorecard against `kpi_targets`. |
+| **6. Profit & Loss** | [`pages/6_Profit_and_Loss.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/6_Profit_and_Loss.py) | **Task 11**: M16 Revenue, Total Opex, M17 Net Profit, M18 Margin %, P&L table, Top 10 vendors, 18-month tie-out to answer key with DQ-04 audit. |
+| **7. Invoices & Cash Flow** | [`pages/7_Invoices_and_Cash_Flow.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/7_Invoices_and_Cash_Flow.py) | **Task 12**: Open status policy (`SENT`, `OVERDUE`, `PARTIALLY_PAID`), 4 aging buckets summing to exact ₹13.93 Cr open book, cash in vs out. |
+| **8. Cross-Department Impact** | [`pages/8_Cross_Department_Impact.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/8_Cross_Department_Impact.py) | **Task 13**: Multi-fact correlation (cost, overtime, attrition), aggregate-first architecture, 100% reconciliation against `reference_summary_dept_month`. |
+| **9. AI Signals** | [`pages/9_AI_Signals.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/9_AI_Signals.py) | **Task 14**: Anomalies ranked by money at risk (₹3.14 Cr), headcount forecast with 80% confidence interval, responsible AI labeling standard. |
+| **10. Executive Scorecard** | [`pages/10_Executive_Scorecard.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/10_Executive_Scorecard.py) | **Task 15**: Founder's 8 headline KPIs with targets and traffic-light status, 1-page A4 print-optimized layout (`@media print`). |
 
 ---
 
@@ -163,6 +179,7 @@ pulseiq-etl1/
 | **Run Streamlit dashboard** | `python -m streamlit run app.py` |
 | **Stop Streamlit** | Press `Ctrl + C` in the terminal |
 | **Run Phase 2 Verification** | `python scripts/verify_phase2_deliverables.py` |
+| **Run Phase 3 Verification** | `python scripts/verify_phase3_deliverables.py` |
 
 ---
 
@@ -172,5 +189,7 @@ pulseiq-etl1/
   *Report*: [`reports/DataAnalytics_Vishesh_Phase1_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase1_Report.pdf)
 - **Phase 2 Tag**: `git checkout phase-2`  
   *Report*: [`reports/DataAnalytics_Vishesh_Phase2_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase2_Report.pdf)
+- **Phase 3 Tag**: `git checkout phase-3`  
+  *Report*: [`reports/DataAnalytics_Vishesh_Phase3_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase3_Report.pdf)
 - **Author**: Vishesh Chaturvedi (`vishesh1603`)
 - **Reviewer**: `fobesitech`
