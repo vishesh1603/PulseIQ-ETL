@@ -1,11 +1,68 @@
 """
-Data Quality Gatekeeper: Run all 14 checks and compare against dq_known_issues
+Data Quality Gatekeeper: Run all 14 checks and compare against dq_known_issues.
+Phase 4 addition: persists results to dw.dq_check_log after every run.
 """
+import json
+import os
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
 import pandas as pd
 import psycopg
 
-PG_CONN = "postgresql://pulseiq:pulseiq@localhost:5433/pulseiq"
+PG_CONN = os.getenv("WAREHOUSE_DSN", "postgresql://pulseiq:pulseiq@localhost:5433/pulseiq")
 EXCEL_PATH = r"c:\Users\DELL\Downloads\pulseiq-etl1\data\raw\PulseIQ_Star_Schema_Dataset.xlsx"
+LOG_DIR = Path(__file__).resolve().parent.parent / "logs"
+
+
+def _get_run_id() -> str:
+    """Read run_id from logs/last_run.json or generate a timestamp-based one."""
+    last_run = LOG_DIR / "last_run.json"
+    if last_run.exists():
+        try:
+            data = json.loads(last_run.read_text(encoding="utf-8"))
+            return data.get("run_id", datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"))
+        except Exception:
+            pass
+    return datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+
+def _persist_results(conn, results: list, run_id: str) -> None:
+    """Write DQ check results into dw.dq_check_log (requires 007_dq_monitoring.sql to be applied)."""
+    try:
+        with conn.cursor() as cur:
+            # Ensure table exists (soft check)
+            cur.execute("SELECT to_regclass('dw.dq_check_log')")
+            if cur.fetchone()[0] is None:
+                print("WARNING: dw.dq_check_log does not exist. Run sql/007_dq_monitoring.sql first.")
+                return
+
+            for row in results:
+                check_code, check_name, severity, tolerance, failing_records, status, description = row
+                cur.execute(
+                    """
+                    INSERT INTO dw.dq_check_log
+                        (run_id, check_code, check_name, severity, status,
+                         rows_failed, tolerance, description)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    """,
+                    (
+                        run_id,
+                        check_code,
+                        check_name,
+                        severity,
+                        status,
+                        int(failing_records) if isinstance(failing_records, (int, float)) else 0,
+                        str(tolerance),
+                        description,
+                    ),
+                )
+        conn.commit()
+        print(f"DQ results persisted to dw.dq_check_log (run_id={run_id})")
+    except Exception as exc:
+        print(f"WARNING: Could not persist DQ results: {exc}")
+
 
 def run_dq_checks():
     conn = psycopg.connect(PG_CONN)
@@ -142,11 +199,24 @@ def run_dq_checks():
         # DQ-C14: Minimum group size
         results.append(('DQ-C14', 'Minimum group size', 'Critical', 'NaN', 0, 'PASS', 'Enforced at SQL view layer via CASE WHEN count < min THEN NULL'))
 
+    # Persist results to dw.dq_check_log (Phase 4)
+    run_id = _get_run_id()
+    _persist_results(conn, results, run_id)
+
     conn.close()
-    
+
     df_res = pd.DataFrame(results, columns=['Check ID', 'Check Name', 'Severity', 'Tolerance', 'Failing Records', 'Status', 'Description'])
     print(df_res.to_string(index=False))
+    
+    n_pass = sum(1 for r in results if r[5] == 'PASS')
+    n_fail = sum(1 for r in results if r[5] == 'FAIL')
+    print(f"\n{'='*60}")
+    print(f"DQ Summary: {n_pass}/{len(results)} PASS | {n_fail} FAIL | run_id={run_id}")
+    print(f"{'='*60}")
     return df_res
 
 if __name__ == '__main__':
-    run_dq_checks()
+    df = run_dq_checks()
+    n_fail = (df['Status'] == 'FAIL').sum()
+    sys.exit(1 if n_fail > 0 else 0)
+

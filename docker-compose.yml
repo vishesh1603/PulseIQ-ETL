@@ -84,6 +84,29 @@ services:
       - .:/app
 
 
+  scheduler:
+    build: .
+    command: ["python", "scripts/scheduler.py"]
+    restart: unless-stopped
+    depends_on:
+      warehouse:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      WAREHOUSE_DSN: postgresql://${WAREHOUSE_USER:-pulseiq}:${WAREHOUSE_PASSWORD:-pulseiq}@warehouse:5432/${WAREHOUSE_DB:-pulseiq}
+      SCHEDULE_HOUR: ${SCHEDULE_HOUR:-2}
+      SCHEDULE_MINUTE: ${SCHEDULE_MINUTE:-0}
+      ALERT_CHANNEL: ${ALERT_CHANNEL:-log}
+      ALERT_WEBHOOK_URL: ${ALERT_WEBHOOK_URL:-}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./scripts:/app/scripts:ro
+      - ./sql:/app/sql:ro
+
+
 
 volumes:
   warehouse_data:

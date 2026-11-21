@@ -94,21 +94,23 @@ pytest -v tests/
 
 ## 📊 Dashboard Pages Overview
 
-The Streamlit app is organized into 10 dedicated executive pages (in `pages/`):
+The Streamlit app is organized into **12 executive pages** (in `pages/`) plus the main overview:
 
 | Page | File | Key Features & Metrics |
 | :--- | :--- | :--- |
-| **Overview** | [`app.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/app.py) | Executive headcount, joiners, leavers, salary totals, and quick navigation. |
-| **1. Attendance & Leave** | [`pages/1_Attendance_and_Leave.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/1_Attendance_and_Leave.py) | **Task 6**: M13 Attendance Rate, M14 Late Arrivals, 19 Indian holidays marked, monthly attendance heatmap, leave category breakdown. |
-| **2. Attrition Analytics** | [`pages/2_Attrition_Analytics.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/2_Attrition_Analytics.py) | **Task 7**: M03 Exits, M04/M05 Attrition, voluntary/involuntary breakdown, tenure at exit distribution, CortexHR AI predictions with group privacy masking (`<10` suppressed). |
-| **3. Team Productivity** | [`pages/3_Team_Productivity.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/3_Team_Productivity.py) | **Task 8**: 16 engineering teams, 38 sprints, 28k tasks. M24 Velocity, cycle time, on-time completion %, cancelled/reopened task rules. |
-| **4. Payroll Reconciliation** | [`pages/4_Payroll_Cost_and_Reconciliation.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/4_Payroll_Cost_and_Reconciliation.py) | **Task 9**: M07 Gross Pay, M09 Employer Cost, M10 Cost Per Head, official 18-month reconciliation table (**exact match, ₹0.00 variance**), audit trail of 4 quarantined rows (`PI-X0001` to `PI-X0004`). |
-| **5. Budget Variance** | [`pages/5_Budget_vs_Actual_Variance.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/5_Budget_vs_Actual_Variance.py) | **Task 10**: Cost variance sign rule banner (`Actual - Budget`), department overspend ranking, operational KPI scorecard against `kpi_targets`. |
-| **6. Profit & Loss** | [`pages/6_Profit_and_Loss.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/6_Profit_and_Loss.py) | **Task 11**: M16 Revenue, Total Opex, M17 Net Profit, M18 Margin %, P&L table, Top 10 vendors, 18-month tie-out to answer key with DQ-04 audit. |
-| **7. Invoices & Cash Flow** | [`pages/7_Invoices_and_Cash_Flow.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/7_Invoices_and_Cash_Flow.py) | **Task 12**: Open status policy (`SENT`, `OVERDUE`, `PARTIALLY_PAID`), 4 aging buckets summing to exact ₹13.93 Cr open book, cash in vs out. |
-| **8. Cross-Department Impact** | [`pages/8_Cross_Department_Impact.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/8_Cross_Department_Impact.py) | **Task 13**: Multi-fact correlation (cost, overtime, attrition), aggregate-first architecture, 100% reconciliation against `reference_summary_dept_month`. |
-| **9. AI Signals** | [`pages/9_AI_Signals.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/9_AI_Signals.py) | **Task 14**: Anomalies ranked by money at risk (₹3.14 Cr), headcount forecast with 80% confidence interval, responsible AI labeling standard. |
-| **10. Executive Scorecard** | [`pages/10_Executive_Scorecard.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/10_Executive_Scorecard.py) | **Task 15**: Founder's 8 headline KPIs with targets and traffic-light status, 1-page A4 print-optimized layout (`@media print`). |
+| **Overview** | [`app.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/app.py) | Executive headcount, joiners, leavers, salary totals, quick navigation. |
+| **0. About & Lineage** | [`pages/0_About_and_Lineage.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/0_About_and_Lineage.py) | **Task 19**: Interactive 29-metric lineage catalog, pipeline health panel, SQL view detail, data flow diagram. |
+| **1. Attendance & Leave** | [`pages/1_Attendance_and_Leave.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/1_Attendance_and_Leave.py) | **Task 6**: M13 Attendance Rate, M14 Late Arrivals, 19 Indian holidays marked, monthly heatmap, leave category breakdown. |
+| **2. Attrition Analytics** | [`pages/2_Attrition_Analytics.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/2_Attrition_Analytics.py) | **Task 7**: M03–M06 Attrition, voluntary/involuntary, tenure at exit, CortexHR AI risk (groups <10 suppressed). |
+| **3. Team Productivity** | [`pages/3_Team_Productivity.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/3_Team_Productivity.py) | **Task 8**: 16 teams, 38 sprints, 28k tasks. M24 Velocity, M22 completion %, M25 cycle time. |
+| **4. Payroll Reconciliation** | [`pages/4_Payroll_Cost_and_Reconciliation.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/4_Payroll_Cost_and_Reconciliation.py) | **Task 9**: M07–M10, 18-month reconciliation (**₹0.00 variance**), 4 quarantined rows. |
+| **5. Budget Variance** | [`pages/5_Budget_vs_Actual_Variance.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/5_Budget_vs_Actual_Variance.py) | **Task 10**: Actual−Budget sign rule, department overspend ranking, KPI scorecard. |
+| **6. Profit & Loss** | [`pages/6_Profit_and_Loss.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/6_Profit_and_Loss.py) | **Task 11**: M16–M18, P&L table, Top 10 vendors, 18-month tie-out with DQ-04 audit. |
+| **7. Invoices & Cash Flow** | [`pages/7_Invoices_and_Cash_Flow.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/7_Invoices_and_Cash_Flow.py) | **Task 12**: 4 aging buckets (₹13.93 Cr open), M20 DSO, M21 overdue receivables. |
+| **8. Cross-Department Impact** | [`pages/8_Cross_Department_Impact.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/8_Cross_Department_Impact.py) | **Task 13**: 4-way join, 198-row reconciliation against `reference_summary_dept_month`. |
+| **9. AI Signals** | [`pages/9_AI_Signals.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/9_AI_Signals.py) | **Task 14**: M26–M28, anomalies ranked by ₹3.14 Cr risk, 80% CI forecast. |
+| **10. Executive Scorecard** | [`pages/10_Executive_Scorecard.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/10_Executive_Scorecard.py) | **Task 15**: 8 Founder KPIs, traffic-light status, A4 print layout. |
+| **11. Alert History** | [`pages/11_Alert_Log.py`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/pages/11_Alert_Log.py) | **Task 18**: KPI breach log, severity chart, scheduler heartbeat, re-run button. |
 
 ---
 
@@ -170,16 +172,40 @@ pulseiq-etl1/
 
 ## 🛠️ Management Cheat Sheet
 
+### Core Commands
 | Task | Command |
 | :--- | :--- |
 | **Start database only** | `docker compose up -d warehouse` |
-| **Check database status** | `docker compose ps` |
-| **Stop database** | `docker compose stop warehouse` |
+| **Check all services** | `docker compose ps` |
+| **Stop all services** | `docker compose stop` |
 | **Connect to psql shell** | `docker compose exec warehouse psql -U pulseiq -d pulseiq` |
 | **Run Streamlit dashboard** | `python -m streamlit run app.py` |
 | **Stop Streamlit** | Press `Ctrl + C` in the terminal |
-| **Run Phase 2 Verification** | `python scripts/verify_phase2_deliverables.py` |
-| **Run Phase 3 Verification** | `python scripts/verify_phase3_deliverables.py` |
+
+### Phase 4 — Production Commands
+| Task | Command |
+| :--- | :--- |
+| **Run ETL immediately** | `python scripts/scheduler.py --run-now` |
+| **Start daily scheduler** | `docker compose up -d scheduler` |
+| **Apply RBAC roles** | `docker compose exec warehouse psql -U pulseiq -d pulseiq -f /app/sql/006_rbac.sql` |
+| **Apply DQ log table** | `docker compose exec warehouse psql -U pulseiq -d pulseiq -f /app/sql/007_dq_monitoring.sql` |
+| **Apply alert log table** | `docker compose exec warehouse psql -U pulseiq -d pulseiq -f /app/sql/008_alert_log.sql` |
+| **Run DQ checks** | `python scripts/run_all_14_dq_checks.py` |
+| **Run KPI alert checks** | `python scripts/alerting.py` |
+| **Verify Phase 4** | `python scripts/verify_phase4_deliverables.py` |
+| **Generate Phase 4 PDF** | `python scripts/generate_phase4_pdf.py` |
+| **Connect as HR user** | `psql -U hr_readonly -d pulseiq -h localhost -p 5433` |
+| **Connect as Finance user** | `psql -U fin_readonly -d pulseiq -h localhost -p 5433` |
+| **Connect as Exec user** | `psql -U exec_readonly -d pulseiq -h localhost -p 5433` |
+
+### Verification Commands (All Phases)
+| Phase | Command |
+| :--- | :--- |
+| **Phase 4** | `python scripts/verify_phase4_deliverables.py` |
+| **Phase 3** | `python scripts/verify_phase3_deliverables.py` |
+| **Phase 2** | `python scripts/verify_phase2_deliverables.py` |
+| **Foundation** | `python scripts/verify_foundation_phase.py` |
+| **All pytest** | `pytest -v tests/` |
 
 ---
 
@@ -191,5 +217,37 @@ pulseiq-etl1/
   *Report*: [`reports/DataAnalytics_Vishesh_Phase2_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase2_Report.pdf)
 - **Phase 3 Tag**: `git checkout phase-3`  
   *Report*: [`reports/DataAnalytics_Vishesh_Phase3_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase3_Report.pdf)
+- **Phase 4 Tag**: `git checkout phase-4`  
+  *Report*: [`reports/DataAnalytics_Vishesh_Phase4_Report.pdf`](file:///c:/Users/DELL/Downloads/pulseiq-etl1/reports/DataAnalytics_Vishesh_Phase4_Report.pdf)
 - **Author**: Vishesh Chaturvedi (`vishesh1603`)
 - **Reviewer**: `fobesitech`
+
+---
+
+## 🔐 Phase 4: Security & Production Features
+
+### Role-Based Access Control (RBAC)
+Apply with: `psql -U pulseiq -d pulseiq -f sql/006_rbac.sql`
+
+| Role | Login User | Password | Access Scope |
+| :--- | :--- | :--- | :--- |
+| `role_hr` | `hr_readonly` | `hr_pass_2026` | HR fact tables + metric views M01–M15, M27, M29 |
+| `role_finance` | `fin_readonly` | `fin_pass_2026` | Finance tables + metric views M16–M21 |
+| `role_executive` | `exec_readonly` | `exec_pass_2026` | All 29 metric views only (no raw tables) |
+
+### KPI Alerting
+Configure in `.env` (copy from `.env.example`):
+```
+ALERT_CHANNEL=log          # log | webhook | email
+ALERT_WEBHOOK_URL=         # Slack/Teams webhook URL
+```
+Manual run: `python scripts/alerting.py`
+
+### Automated Scheduler
+```powershell
+# Start the daily 02:00 AM scheduler
+docker compose up -d scheduler
+
+# Or run ETL immediately
+python scripts/scheduler.py --run-now
+```
