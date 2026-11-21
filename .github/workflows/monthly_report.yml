@@ -1,0 +1,44 @@
+name: PulseIQ Automated Monthly Report Pack
+
+on:
+  schedule:
+    # Run on the 1st of every month at 02:00 AM UTC
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+    inputs:
+      month:
+        description: 'Reporting month (YYYY-MM)'
+        required: true
+        default: '2026-09'
+
+jobs:
+  build-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Automated Monthly Report Builder
+        run: |
+          TARGET_MONTH="${{ github.event.inputs.month || '2026-09' }}"
+          echo "Generating Monthly Report Pack for: $TARGET_MONTH"
+          python build_report.py --month "$TARGET_MONTH"
+
+      - name: Upload Monthly Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-report-pack
+          path: reports/monthly_pack_*.pdf
+          retention-days: 90

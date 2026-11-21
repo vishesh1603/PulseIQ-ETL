@@ -1,0 +1,6 @@
+username,role,department,team,email
+admin_user,ADMIN,ALL,ALL,admin@pulseiq.internal
+hr_director,HR,People & Culture,ALL,hr.lead@pulseiq.internal
+eng_manager,MANAGER,Engineering,Frontend Core,manager.eng@pulseiq.internal
+sales_manager,MANAGER,Sales & Marketing,Enterprise Accounts,manager.sales@pulseiq.internal
+cfo_executive,EXECUTIVE,ALL,ALL,cfo@pulseiq.internal
