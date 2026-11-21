@@ -1,35 +1,81 @@
 """
 PulseIQ Cloud Database Initializer & Seeder
-Runs all schema migrations, loads initial data, and verifies views for Render / Supabase / Neon / Railway.
+Runs all schema migrations, loads initial data, and verifies views for Neon / Render / Supabase / Railway.
+Features automatic DNS fallback (Google DoH) for networks with restrictive local DNS.
 
 Usage:
-    python scripts/init_cloud_db.py
-    python scripts/init_cloud_db.py --dsn "postgresql://user:pass@host:port/dbname"
+    python scripts/init_cloud_db.py --dsn "postgresql://user:pass@host/dbname?sslmode=require"
 """
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 sys.path.insert(0, str(PROJECT_ROOT))
 
+def resolve_host_fallback(hostname: str) -> str | None:
+    """Resolve hostname using Google DNS-over-HTTPS if local DNS fails."""
+    try:
+        url = f"https://dns.google/resolve?name={hostname}&type=A"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=4) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            for ans in data.get("Answer", []):
+                if ans.get("type") == 1:  # Type A IPv4
+                    return ans.get("data")
+    except Exception:
+        pass
+    return None
+
+def prepare_dsn(raw_dsn: str) -> str:
+    """Clean and inject hostaddr if needed."""
+    dsn = raw_dsn.strip()
+    if dsn.startswith("postgres://"):
+        dsn = dsn.replace("postgres://", "postgresql://", 1)
+
+    # For migrations, direct connection (without -pooler) is more reliable
+    if "-pooler." in dsn:
+        dsn = dsn.replace("-pooler.", ".")
+
+    # Test if standard DNS works; if not, inject hostaddr
+    try:
+        parsed = urllib.parse.urlparse(dsn)
+        host = parsed.hostname
+        if host and "hostaddr=" not in dsn:
+            import socket
+            try:
+                socket.getaddrinfo(host, 5432)
+            except socket.gaierror:
+                print(f"[INFO] Local DNS refused {host}. Using public DNS fallback...")
+                ip = resolve_host_fallback(host)
+                if ip:
+                    delimiter = "&" if "?" in dsn else "?"
+                    dsn = f"{dsn}{delimiter}hostaddr={ip}"
+                    print(f"[INFO] Host resolved to IP {ip} (via hostaddr).")
+    except Exception:
+        pass
+
+    return dsn
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Initialize and seed PulseIQ database on cloud (Render/Neon/Supabase).")
+    parser = argparse.ArgumentParser(description="Initialize and seed PulseIQ database on cloud (Neon/Render/Supabase).")
     parser.add_argument("--dsn", help="PostgreSQL connection URI (defaults to DATABASE_URL or WAREHOUSE_DSN env var)")
     args = parser.parse_args()
 
-    dsn = args.dsn or os.getenv("DATABASE_URL") or os.getenv("WAREHOUSE_DSN")
-    if not dsn:
+    raw_dsn = args.dsn or os.getenv("DATABASE_URL") or os.getenv("WAREHOUSE_DSN")
+    if not raw_dsn:
         print("[ERROR] No database connection string provided.")
         print("Set DATABASE_URL in your environment or pass --dsn 'postgresql://user:pass@host:5432/dbname'")
         sys.exit(1)
 
-    if dsn.startswith("postgres://"):
-        dsn = dsn.replace("postgres://", "postgresql://", 1)
+    dsn = prepare_dsn(raw_dsn)
 
     print("=" * 60)
     print("  PulseIQ Cloud Database Initialization")
@@ -101,7 +147,7 @@ def main() -> None:
         print(f"      [WARN] Verification notice: {exc}")
 
     print("\n" + "=" * 60)
-    print("  [SUCCESS] Database is initialized and ready for Streamlit!")
+    print("  [SUCCESS] Database is fully initialized and ready for Streamlit!")
     print("=" * 60)
 
 if __name__ == "__main__":

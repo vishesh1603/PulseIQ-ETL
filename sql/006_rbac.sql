@@ -46,8 +46,12 @@ GRANT role_hr        TO hr_readonly;
 GRANT role_finance   TO fin_readonly;
 GRANT role_executive TO exec_readonly;
 
--- Allow all roles to connect to the pulseiq database
-GRANT CONNECT ON DATABASE pulseiq TO role_hr, role_finance, role_executive;
+-- Allow all roles to connect to the current database
+DO $$
+BEGIN
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO role_hr, role_finance, role_executive', current_database());
+END
+$$;
 
 -- ============================================================================
 -- 3. SCHEMA USAGE

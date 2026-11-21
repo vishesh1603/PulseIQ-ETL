@@ -61,6 +61,12 @@ JOIN dw.dim_department dep ON dep.department_key = att.department_key
 JOIN dw.dim_employee e ON e.employee_key = att.employee_key
 WHERE a.source_dataset = 'attendance_monthly_features';
 
--- Grant SELECT to superset_ro
-GRANT SELECT ON dw.fact_anomaly TO superset_ro;
-GRANT SELECT ON dw.v_attendance_anomaly TO superset_ro;
+-- Grant SELECT to superset_ro if role exists
+DO $$
+BEGIN
+    IF EXISTS (SELECT FROM pg_roles WHERE rolname = 'superset_ro') THEN
+        GRANT SELECT ON dw.fact_anomaly TO superset_ro;
+        GRANT SELECT ON dw.v_attendance_anomaly TO superset_ro;
+    END IF;
+END
+$$;

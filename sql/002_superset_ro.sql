@@ -12,8 +12,12 @@ BEGIN
 END
 $$;
 
--- Grant connection to database
-GRANT CONNECT ON DATABASE pulseiq TO superset_ro;
+-- Grant connection to database dynamically
+DO $$
+BEGIN
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO superset_ro', current_database());
+END
+$$;
 
 -- Restrict schema access strictly to schema "dw"
 GRANT USAGE ON SCHEMA dw TO superset_ro;
