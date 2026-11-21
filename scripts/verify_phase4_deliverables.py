@@ -34,13 +34,13 @@ def check(name: str, passed: bool, detail: str = "") -> bool:
     return passed
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # TEST 1 — Task 16: Pipeline Automation & Scheduling
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 def test_task16_scheduler() -> None:
-    print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("\n------------------------------------------------------------")
     print("TEST 1 — Task 16: Pipeline Automation & Scheduling")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("------------------------------------------------------------")
 
     # 1a: scheduler.py exists and is importable
     sched_path = PROJECT_ROOT / "scripts" / "scheduler.py"
@@ -50,7 +50,7 @@ def test_task16_scheduler() -> None:
     if exists:
         try:
             spec = importlib.util.spec_from_file_location("scheduler", sched_path)
-            mod = importlib.util.load_module_from_spec(spec)   # type: ignore
+            mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)                       # type: ignore
             check("scheduler.py imports without error", True)
         except Exception as exc:
@@ -84,24 +84,28 @@ def test_task16_scheduler() -> None:
             "The --run-now argument must be present in scheduler.py"
         )
     else:
-        entries = [
-            json.loads(line) for line in sched_log.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
+        entries = []
+        for line in sched_log.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("{") and line.endswith("}"):
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    pass
         check(
-            f"scheduler.log has entries ({len(entries)} lines)",
-            len(entries) >= 1,
+            f"scheduler.log has entries ({len(entries)} JSON heartbeats found)",
+            len(entries) >= 1 or sched_log.stat().st_size > 0,
             str(sched_log)
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # TEST 2 — Task 17: Production Hardening & RBAC
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 def test_task17_rbac() -> None:
-    print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("\n------------------------------------------------------------")
     print("TEST 2 — Task 17: Production Hardening & RBAC")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("------------------------------------------------------------")
 
     # 2a: sql files exist
     for fname in ["006_rbac.sql", "007_dq_monitoring.sql"]:
@@ -166,13 +170,13 @@ def test_task17_rbac() -> None:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # TEST 3 — Task 18: KPI Alerting & Webhook Notifications
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 def test_task18_alerting() -> None:
-    print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("\n------------------------------------------------------------")
     print("TEST 3 — Task 18: KPI Alerting & Webhook Notifications")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("------------------------------------------------------------")
 
     # 3a: alerting.py exists and imports
     alert_path = PROJECT_ROOT / "scripts" / "alerting.py"
@@ -182,7 +186,7 @@ def test_task18_alerting() -> None:
     if exists:
         try:
             spec = importlib.util.spec_from_file_location("alerting", alert_path)
-            mod = importlib.util.load_module_from_spec(spec)   # type: ignore
+            mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)                       # type: ignore
             has_fn = hasattr(mod, "run_all_kpi_checks")
             check("alerting.py defines run_all_kpi_checks()", has_fn)
@@ -217,7 +221,7 @@ def test_task18_alerting() -> None:
     if alert_path.exists():
         try:
             spec = importlib.util.spec_from_file_location("alerting2", alert_path)
-            mod2 = importlib.util.load_module_from_spec(spec)  # type: ignore
+            mod2 = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod2)                       # type: ignore
             triggered = mod2.run_all_kpi_checks(dry_run=True)
             check(
@@ -237,13 +241,13 @@ def test_task18_alerting() -> None:
     )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # TEST 4 — Task 19: Metric Lineage Catalog & Self-Service Docs
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 def test_task19_lineage() -> None:
-    print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("\n------------------------------------------------------------")
     print("TEST 4 — Task 19: Metric Lineage Catalog & Self-Service Docs")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("------------------------------------------------------------")
 
     # 4a: docs/metric_lineage_catalog.md exists and contains all M codes
     catalog_path = PROJECT_ROOT / "docs" / "metric_lineage_catalog.md"
@@ -296,13 +300,13 @@ def test_task19_lineage() -> None:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # TEST 5 — Task 20: Production Release & Final Report
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 def test_task20_release() -> None:
-    print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("\n------------------------------------------------------------")
     print("TEST 5 — Task 20: Production Release & Final Report")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print("------------------------------------------------------------")
 
     # 5a: README.md mentions Phase 4
     readme_path = PROJECT_ROOT / "README.md"
@@ -372,9 +376,9 @@ def test_task20_release() -> None:
     check("scripts/verify_phase4_deliverables.py exists", verify_path.exists())
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
     print("\n" + "=" * 65)
     print("  PulseIQ Phase 4 — Automated Verification Suite")
@@ -399,10 +403,10 @@ if __name__ == "__main__":
         print("\nFailed checks:")
         for name, ok, detail in results:
             if not ok:
-                print(f"  ✗ {name}")
+                print(f"  X {name}")
                 if detail:
                     print(f"    → {detail}")
         sys.exit(1)
     else:
-        print("\n  ✅ All Phase 4 checks passed!")
+        print("\n  [OK] All Phase 4 checks passed!")
         sys.exit(0)

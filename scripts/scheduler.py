@@ -101,7 +101,7 @@ def run_alerting() -> None:
         # Import and run alerting module
         import importlib.util
         spec = importlib.util.spec_from_file_location("alerting", alerting_path)
-        alerting_mod = importlib.util.load_module_from_spec(spec)  # type: ignore[attr-defined]
+        alerting_mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(alerting_mod)  # type: ignore[union-attr]
         alerting_mod.run_all_kpi_checks()
         log.info("KPI alerting checks completed")

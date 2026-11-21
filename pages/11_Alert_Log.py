@@ -134,7 +134,7 @@ with col_btn:
         if alerting_path.exists():
             import importlib.util
             spec = importlib.util.spec_from_file_location("alerting", alerting_path)
-            mod = importlib.util.load_module_from_spec(spec)   # type: ignore
+            mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)                       # type: ignore
             with st.spinner("Running KPI checks…"):
                 triggered = mod.run_all_kpi_checks()
