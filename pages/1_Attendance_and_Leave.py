@@ -44,9 +44,15 @@ PG_PASS = os.getenv("WAREHOUSE_PASSWORD", "pulseiq")
 
 @st.cache_resource
 def get_db_connection():
-    conn = psycopg.connect(
-        host=PG_HOST, port=PG_PORT, dbname=PG_DB, user=PG_USER, password=PG_PASS
-    )
+    db_url = os.getenv("DATABASE_URL") or os.getenv("WAREHOUSE_DSN")
+    if db_url:
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1)
+        conn = psycopg.connect(db_url)
+    else:
+        conn = psycopg.connect(
+            host=PG_HOST, port=PG_PORT, dbname=PG_DB, user=PG_USER, password=PG_PASS
+        )
     conn.autocommit = True
     return conn
 

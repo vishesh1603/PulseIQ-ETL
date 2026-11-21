@@ -25,7 +25,8 @@ st.set_page_config(
     layout="wide",
 )
 
-PG_CONN = os.getenv("WAREHOUSE_DSN", "postgresql://pulseiq:pulseiq@localhost:5433/pulseiq")
+PG_CONN = os.getenv("DATABASE_URL") or os.getenv("WAREHOUSE_DSN", "postgresql://pulseiq:pulseiq@localhost:5433/pulseiq")
+if PG_CONN.startswith("postgres://"): PG_CONN = PG_CONN.replace("postgres://", "postgresql://", 1)
 
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
