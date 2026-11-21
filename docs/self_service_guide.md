@@ -1,7 +1,8 @@
 # PulseIQ — Self-Service User Guide
 
 > **Phase 4 — Task 19** | For non-technical business users  
-> Dashboard URL: [http://localhost:8501](http://localhost:8501)
+> **Live Production Dashboard**: [https://pulseiq-etl-0801.onrender.com/](https://pulseiq-etl-0801.onrender.com/)  
+> Local Development URL: [http://localhost:8501](http://localhost:8501)
 
 ---
 
@@ -9,13 +10,16 @@
 
 ### Opening the Dashboard
 
-1. Make sure Docker is running (look for the Docker whale icon in your taskbar).
-2. Open a terminal and run:
+You can access PulseIQ in two ways:
+1. **Live Production Cloud (Instant Access — Zero Setup)**:
+   Navigate directly in any web browser to: **[https://pulseiq-etl-0801.onrender.com/](https://pulseiq-etl-0801.onrender.com/)**
+2. **Local Machine (via Docker)**:
+   Make sure Docker is running, then run:
    ```powershell
    docker compose up -d warehouse
    python -m streamlit run app.py
    ```
-3. Open your browser and go to: **http://localhost:8501**
+   Open: **http://localhost:8501**
 
 The dashboard will load with the **Overview** page showing key headline numbers.
 

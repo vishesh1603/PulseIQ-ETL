@@ -1,9 +1,14 @@
 # PulseIQ — Enterprise Workforce & HR Analytics Platform
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-46E3B7?style=for-the-badge&logo=render)](https://pulseiq-etl-0801.onrender.com/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/vishesh1603/PulseIQ-ETL)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791.svg)](https://www.postgresql.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.38+-FF4B4B.svg)](https://streamlit.io/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://www.docker.com/)
+
+> 🚀 **Live Production Deployment**: **[https://pulseiq-etl-0801.onrender.com/](https://pulseiq-etl-0801.onrender.com/)**  
+> *Interactive 12-page executive workforce dashboard connected to cloud PostgreSQL, featuring dark/light mode toggle, metric lineage, and automated alerts.*
 
 PulseIQ is an end-to-end People Analytics platform that extracts, cleans, validates, and models enterprise HR, payroll, attendance, and sprint data into a PostgreSQL Star-Schema Data Warehouse (`dw`), served through an interactive Streamlit executive dashboard.
 

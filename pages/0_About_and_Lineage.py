@@ -50,6 +50,7 @@ st.markdown("""
 <div class="lineage-header">
   <h2>🔍 About PulseIQ & Metric Lineage</h2>
   <p>Complete traceability for every number on the dashboard — from raw source table to business KPI.</p>
+  <p style="margin-top: 6px;"><a href="https://pulseiq-etl-0801.onrender.com/" target="_blank" style="color: #60a5fa; text-decoration: underline; font-weight: 600;">🚀 Live Production Deployment: https://pulseiq-etl-0801.onrender.com/</a></p>
 </div>
 """, unsafe_allow_html=True)
 

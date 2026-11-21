@@ -163,7 +163,7 @@ class NumberedCanvas(canvas.Canvas):
         self.line(MARGIN_H, 24, PAGE_WIDTH - MARGIN_H, 24)
         self.drawString(
             MARGIN_H, 14,
-            "Official Submission Report | Data Analytics Track | Repository: github.com/vishesh1603/PulseIQ-ETL"
+            "Official Submission Report | Live Deployment: pulseiq-etl-0801.onrender.com | Repo: github.com/vishesh1603/PulseIQ-ETL"
         )
         page_str = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(PAGE_WIDTH - MARGIN_H, 14, page_str)
@@ -258,8 +258,8 @@ def build_page1(story: list) -> None:
         ],
         [
             Paragraph("<b>GitHub:</b> <a href='https://github.com/vishesh1603/PulseIQ-ETL' color='#0072B2'><u>github.com/vishesh1603/PulseIQ-ETL</u></a>", T_BODY),
+            Paragraph("<b>Live App:</b> <a href='https://pulseiq-etl-0801.onrender.com/' color='#0072B2'><u>pulseiq-etl-0801.onrender.com</u></a>", T_BODY),
             Paragraph("<b>Git Tag:</b> <code>phase-4</code>", T_BODY),
-            Paragraph(f"<b>Date:</b> {datetime.now(timezone.utc).strftime('%d %b %Y %H:%M UTC')}", T_BODY),
         ]
     ]
     t_meta = Table(meta_box, colWidths=[200, 160, 160])
@@ -720,7 +720,8 @@ def build_page6(story: list) -> None:
             "<font size='7' color='#E2E8F0'>"
             "All 20 tasks across all 4 phases are 100% complete, fully verified, and production-ready. "
             "The platform securely ingests, validates, models, visualizes, monitors, and alerts on enterprise workforce, "
-            "payroll, sprint, and financial data with enterprise-grade RBAC, automated scheduling, and complete metric lineage."
+            "payroll, sprint, and financial data with enterprise-grade RBAC, automated scheduling, and complete metric lineage.<br/>"
+            "<b>Live Production Deployment:</b> <a href='https://pulseiq-etl-0801.onrender.com/' color='#63B3ED'><u>https://pulseiq-etl-0801.onrender.com/</u></a>"
             "</font>",
             _style("GRAD_P", fontSize=7.5, leading=10, textColor=C_WHITE, alignment=TA_CENTER)
         )
